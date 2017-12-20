@@ -1,5 +1,5 @@
 (provide `my-dict)
-(add-to-list 'load-path "~/.emacs.d/lisp/dictionary-el")
+(add-to-list 'load-path "~/.emacs.d/lisp/dictionary_el")
 (require `dictionary)
 (global-set-key (kbd "C-c d") `dictionary-search)
 (global-set-key (kbd "C-c l") `get-latin-from-words)
