@@ -1,0 +1,5 @@
+(provide `my-dict)
+(add-to-list 'load-path "~/.emacs.d/lisp/dictionary-el")
+(require `dictionary)
+
+
