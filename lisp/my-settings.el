@@ -111,3 +111,25 @@
 (add-hook 'fsharp-mode-hook 'origami-mode)
 
 (setq ring-bell-function 'ignore)
+
+(add-hook `haskell-mode `origami-mode)
+
+(defun change-buffer-for-term ()
+   (term-set-escape-char ?\C-x)
+  (define-key term-raw-map (kbd "C-x b") `switch-to-buffer)
+  (define-key term-raw-map (kbd "C-x o") `other-window)
+  )
+
+(add-hook `term-mode-hook `change-buffer-for-term)
+
+
+(keyboard-translate ?\C-h ?\C-?)
+
+
+
+
+
+
+
+
+
