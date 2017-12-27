@@ -67,7 +67,7 @@
 
 
 (defun insert-python-code (code)
-  (interactive "scython(ci) ti(import tensorflow as tf) tp(tf.placeholder) tf(tf.float32) ts(tf.square), c(comment '''''') u(rl) t(   ), m(if ..main..) cn(connect to buffer ein)")
+  (interactive "scython(ci) ti(import tensorflow as tf) tp(tf.placeholder) tf(tf.float32) ts(tf.square), c(comment '''''') u(rl) t(   ), m(if ..main..) cn(connect to buffer ein) r(reload)")
   (cond ((string= code "ci") (insert "import numpy as np\ncimport numpy as np\n"))
 	((string= code "ti") (insert "import tensorflow as tf\n"))
 	((string= code "tp") (insert "tf.placeholder"))
@@ -77,7 +77,7 @@
 	((string= code "u") (insert "url = \"\""))
 	((string= code "t") (insert "    "))
 	((string= code "m") (insert "if __name__==\"__main__\" : "))
-
+	((string= code "r") (insert  "from importlib import reload as r"))
 	))
 
 (defun insert-haskell-code (code)
