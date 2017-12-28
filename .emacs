@@ -114,7 +114,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(custom-enabled-themes (quote (tango)))
  '(display-time-mode t)
  '(imenu-auto-rescan t)
  '(package-selected-packages
