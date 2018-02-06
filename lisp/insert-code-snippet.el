@@ -81,12 +81,13 @@
 	))
 
 (defun insert-haskell-code (code)
-  (interactive "sd(efine) a(->) n(notion ::) t(type =>)")
+  (interactive "sd(efine) a(->) n(notion ::) t(type =>) l(language {-# #-})")
   (cond
    ((string= code "d") (call-interactively `insert-haskell-definition))
    ((string= code "a") (insert " -> "))
    ((string= code "n") (insert " :: "))
    ((string= code "t") (insert " => "))
+   ((string= code "l") (progn (insert "{-# LANGUAGE  #-}") (backward-char 4)))
    ))
 
 (defun insert-html-code (code)

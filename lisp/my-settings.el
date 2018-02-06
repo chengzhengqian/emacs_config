@@ -37,6 +37,7 @@
 (global-set-key (kbd "C-c j") 'imenu)
 (global-set-key (kbd "C-x t") 'new-shell-or-term)
 (global-set-key (kbd "C-c b") 'w3m-search)
+(global-set-key (kbd "C-c B") 'w3m-search-new-session)
 
 (setq CZQ-term-name-pattern "t\\(.*\\)")
 (defun new-shell-or-term (name)
@@ -114,11 +115,19 @@
 
 (add-hook `haskell-mode `origami-mode)
 
+(defun change-term-mode ()
+  (interactive)
+  (if (term-in-line-mode) 
+      (term-char-mode)
+      (term-line-mode)))
+  
 (defun change-buffer-for-term ()
-   (term-set-escape-char ?\C-x)
+  (term-set-escape-char ?\C-x)
   (define-key term-raw-map (kbd "C-x b") `switch-to-buffer)
   (define-key term-raw-map (kbd "C-x o") `other-window)
+  (define-key term-raw-map (kbd "C-x j") `change-term-mode)
   )
+(define-key term-mode-map (kbd "C-x j") `change-term-mode)
 
 (add-hook `term-mode-hook `change-buffer-for-term)
 
