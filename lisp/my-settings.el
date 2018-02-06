@@ -134,11 +134,7 @@
 
 (keyboard-translate ?\C-h ?\C-?)
 
-
-
-
-
-
-
+(global-set-key (kbd "<C-tab>") `w3m-next-buffer)
+(global-set-key (kbd "<C-iso-lefttab>") `w3m-previous-buffer)
 
 
