@@ -103,13 +103,22 @@
   (interactive)
   (setq CZQ_file_extension (file-name-extension (buffer-name)))
   (cond
-   ((string= CZQ_file_extension "cpp") (call-interactively `format-cpp-code))
-   ((string= CZQ_file_extension "h") (call-interactively `format-cpp-code))
-   ((string= CZQ_file_extension "c") (call-interactively `format-cpp-code))
-   ((string= CZQ_file_extension "py") (call-interactively `format-python-code))
-   ((string= CZQ_file_extension "pyx") (call-interactively `format-python-code))
-   ((string= CZQ_file_extension "pxd") (call-interactively `format-python-code))
+
+   ((string-prefix-p  "h" CZQ_file_extension) (call-interactively `format-cpp-code))
+   ((string-prefix-p "c" CZQ_file_extension) (call-interactively `format-cpp-code))
+   ((string-prefix-p "py" CZQ_file_extension ) (call-interactively `format-python-code))
+   ((string-prefix-p  "js" CZQ_file_extension) (call-interactively `format-javascript-code))
    ))
+
+
+(defun format-javascript-code ()
+  (interactive)
+  (save-buffer)
+  (call-process "js-beautify" nil nil nil  (buffer-file-name) "-r") 
+  (revert-buffer-no-confirm)
+  (message "js-beautify has formated code")
+  )
+
 (defun realgud-pdb ()
   (interactive)
   (save-buffer)
