@@ -15,7 +15,7 @@
 (require `java-snippet)
 
 (defun insert-snippet-cpp (code)
-  (interactive "sinsert i(mplement(io,implement only) and declare) cm(cython module) n(amespace) cl(ass) w(wrap) h(ead prevent) fl(or loop) d(ouble dp:*, f,fp, float) g(__global__) #(include) l(cublas h, handle v,set variable) c(comments /**/) dk register(dr) c-function(dc) jni(ji):")
+  (interactive "sinsert i(mplement(io,implement only) and declare) cm(cython module) n(amespace) cl(ass) w(wrap) h(ead prevent) fl(or loop) d(ouble dp:*, f,fp, float) g(__global__) #(include) l(cublas h, handle v,set variable) c(comments /**/) dk register(dr) c-function(dc) jni(ji) pa(py arg):")
   (cond
    ((string= code "cm") (call-interactively `insert-cpp-python-module-from-head-file))
    ((string= code "h") (call-interactively `insert-code-cpp-head-prevent-string))
@@ -36,11 +36,13 @@
    ((string= code "n") (insert "__global__ "))
    ((string= code "ji") (call-interactively `insert-jni-function))
    ((string= code "#") (insert "#include "))
+   ((string= code "pa") (insert czq-py-c-api-parse-args))
    ((string= code "lh") (call-interactively `insert-cublasHandle-code-with-init-and-destroy))
    ((string= code "lv") (call-interactively `insert-cublasDeviceVariable-code-with-init-and-destroy))
 
    ))
 
+(setq czq-py-c-api-parse-args "if(!PyArg_ParseTuple(args,\"\",&)){\n\treturn NULL;\n\t}")
 (setq czq-jni-template "extern \"C\" JNIEXPORT j%s JNICALL
 Java_com_serendipity_chengzhengqian_jsos_JsNative_%s(JNIEnv* env, jobject /* this */, long ctx_) {\n  duk_context * ctx=(duk_context*)ctx_;\n\n}\n\n\npublic static native %s %s(long context);")
 

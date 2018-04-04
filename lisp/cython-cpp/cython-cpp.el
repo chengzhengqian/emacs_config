@@ -34,12 +34,13 @@
 (setq CZQ_string_implement_func_declare_and_wrap "//w")
 
 (setq CZQ_cython_cpp_function_reg_in_h " \\([^[:space:]]*?\\)(.*?);")
-(setq CZQ_cython_cpp_function_reg_in_cpp "::\\([^[:space:]]*?\\)(.*?) {")
+;; (setq CZQ_cython_cpp_function_reg_in_cpp "::\\([^[:space:]]*?\\)(.*?) {")
+(setq  CZQ_cython_cpp_function_reg_in_cpp "::\\(.*?\\)(.*?){")
 (setq CZQ_cython_cpp_function_reg_in_pxd " \\([^[:space:]]*?\\)(.*?)")
 (setq CZQ_cython_cpp_function_reg_in_pyx " \\([^[:space:]]*?\\)(.*?):")
 
 (setq CZQ_cython_cpp_function_reg_format_in_h " %s(.*?);")
-(setq CZQ_cython_cpp_function_reg_format_in_cpp "%s(.*?) {")
+(setq CZQ_cython_cpp_function_reg_format_in_cpp "%s(.*?){")
 (setq CZQ_cython_cpp_function_reg_format_in_pxd " %s(.*?)")
 (setq CZQ_cython_cpp_function_reg_format_in_pyx " %s(.*?):")
 
@@ -522,6 +523,8 @@
   (find-file (concat CZQ_cpp_goto_base_name CZQ_cpp_goto_extension))
   (beginning-of-buffer)
   (goto-cpp-class-ending CZQ_cpp_current_class  CZQ_cpp_current_namespace)
+  ;;this does not matter in the end
+  (set-text-properties 0 (length CZQ_current_function_name) nil CZQ_current_function_name)
   (cond
    ((string= target-file "h") (setq CZQ_cpp_goto_function_format (format CZQ_cython_cpp_function_reg_format_in_h CZQ_current_function_name)))
    ((string= target-file "c") (setq CZQ_cpp_goto_function_format (format CZQ_cython_cpp_function_reg_format_in_cpp CZQ_current_function_name)))
@@ -530,6 +533,7 @@
    (t (setq CZQ_cpp_goto_function_format (format CZQ_cython_cpp_function_reg_format_in_h CZQ_current_function_name)))
    )
   (search-backward-regexp CZQ_cpp_goto_function_format)
+  ;; (search-backward-regexp "evalString(.*?){")
   )
 
 

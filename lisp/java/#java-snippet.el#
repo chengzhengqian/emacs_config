@@ -1,0 +1,38 @@
+(provide `java-snippet)
+
+(setq czq-java-jni-func-template "JNIEXPORT JNICALL Java_%s_%s(JNIEnv *env, jobject obj){\n}\n")
+(setq czq-java-jni-template "class %s {\n    public static void main(String[] args){\n        }\n    static {\n      System.loadLibrary(\"%s\");}\n\n}\n")
+(setq czq-java-head-file "#include \"%s.h\"")
+(defun insert-java-snippet (code)
+     (interactive "sjni(jn) jni_func(f) include (h)")
+     (cond
+      ((string=  code "jn") (insert-java-jni-template))
+      ((string=  code "f") (call-interactively `insert-jni-function))
+      ((string=  code "h") (call-interactively `insert-jni-include-headfile)
+      )
+     ))
+
+
+(defun insert-jni-function (func-name)
+  (interactive "sFunc Name")
+  (setq czq-java-class-name (file-name-sans-extension (buffer-name)))
+  (setq czq-java-class-jni-file-name (concat (file-name-sans-extension (buffer-file-name)) ".c"))
+  (find-file czq-java-class-jni-file-name)
+  (end-of-buffer)
+  (insert (format czq-java-jni-func-template czq-java-class-name func-name))
+ )
+
+(defun insert-jni-include-headfile ()
+  (interactive)
+  (setq czq-java-class-name (file-name-sans-extension (buffer-name)))
+  (setq czq-java-class-jni-file-name (concat (file-name-sans-extension (buffer-file-name)) ".c"))
+  (find-file czq-java-class-jni-file-name)
+  (beginning-of-buffer)
+    (insert (format czq-java-head-file czq-java-class-name))
+ )
+
+(defun insert-java-jni-template ()
+  (let ((class-name (file-name-sans-extension (buffer-name))))
+    (insert (format czq-java-jni-template class-name class-name))
+    )
+  )
