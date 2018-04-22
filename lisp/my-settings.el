@@ -11,6 +11,7 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(blink-cursor-mode -1)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (electric-pair-mode)
@@ -25,8 +26,9 @@
 ;;(setq tags-table-list `("/home/chengzhengqian/share_workspace/QL/DualProjection"))
 
 ;;I don't know why, but I need to add this to make it work in new computers, any way, everthing works now
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)   
+;; just use elpy
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (setq jedi:complete-on-dot t)   
 
 (setq tags-table-list nil)
 
@@ -93,7 +95,8 @@
 (global-set-key (kbd "\233") `origami-close-all-nodes)
 ;; (global-set-key (kbd "C-c T") `origami-open-all-nodes)
 ;; update the elpy's key binding
-(define-key elpy-mode-map   (kbd "C-c C-t") `origami-close-all-nodes)
+;; (define-key elpy-mode-map   (kbd "C-c C-t") `origami-close-all-nodes)
+(define-key elpy-mode-map   (kbd "M-.") `elpy-goto-definition)
 
 ;; add ggtags
 (add-hook 'c++-mode-hook 'ggtags-mode)
@@ -102,8 +105,7 @@
 (defun remap-fsharp-key ()
   (define-key fsharp-mode-map   (kbd "C-c C-t") `origami-close-all-nodes)
   (define-key fsharp-mode-map   (kbd "C-c i") `fsharp-ac/show-tooltip-at-point)
-
-  )
+)
 ;; add code enbrace
 (add-hook 'c++-mode-hook 'origami-mode)
 (add-hook 'c-mode-hook 'origami-mode)
