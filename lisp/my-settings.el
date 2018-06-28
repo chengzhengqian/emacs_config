@@ -40,6 +40,12 @@
 (global-set-key (kbd "C-x t") 'new-shell-or-term)
 (global-set-key (kbd "C-c b") 'w3m-search)
 (global-set-key (kbd "C-c B") 'w3m-search-new-session)
+(global-set-key (kbd "C-c v") 'handian-search)
+
+(defun handian-search (start end)
+  (interactive "rWords:")
+  (w3m-search w3m-search-default-engine (concat (buffer-substring (region-beginning) (region-end)) " 漢典"))
+  )
 
 (setq CZQ-term-name-pattern "t\\(.*\\)")
 (defun new-shell-or-term (name)
@@ -72,8 +78,8 @@
 
 
 (require `my-dict)
-
 (require `w3m-agent)
+(require `mu4e-settings)
 
 (defun czq-toggle-node ()
   (interactive)
