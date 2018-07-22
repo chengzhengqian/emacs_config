@@ -41,6 +41,7 @@
 (global-set-key (kbd "C-c b") 'w3m-search)
 (global-set-key (kbd "C-c B") 'w3m-search-new-session)
 (global-set-key (kbd "C-c v") 'handian-search)
+(global-set-key (kbd "C-h j") 'javadoc-lookup)
 
 (defun handian-search (start end)
   (interactive "rWords:")
@@ -74,7 +75,10 @@
 
 (setq column-number-mode t)
 
-(setq tags-table-list `("/home/chengzhengqian/cloud/TAG_INC","/home/chengzhengqian/cloud/TAG_CPP"    ,"/home/chengzhengqian/cloud/TAG_LLVM"))
+;; use this to set the tags
+;; (setq tags-table-list `("/home/chengzhengqian/cloud/TAG_INC","/home/chengzhengqian/cloud/TAG_CPP"    ,"/home/chengzhengqian/cloud/TAG_LLVM"))
+(setq tags-table-list `())
+
 
 
 (require `my-dict)
