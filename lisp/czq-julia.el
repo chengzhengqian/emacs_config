@@ -1,0 +1,62 @@
+(provide `czq-julia)
+(setq julia-term-name "tjulia")
+(defun import-julia-file ()
+  (interactive)
+  (setq current-julia-file (buffer-file-name))
+  (run-in-julia (format "include(\"%s\")" current-julia-file))
+  )
+(defun set-julia-term-name (name)
+  (interactive "st(name):")
+  (setq julia-term-name (format "t%s" name))
+  (message julia-term-name)
+  )
+(defun exec-selected-in-julia (beginning end)
+  (interactive "r")
+  (if (use-region-p)   (setq julia-command (buffer-substring beginning end)) 
+    (setq julia-command (thing-at-point `symbol))
+      )
+  (run-in-julia julia-command)
+  )
+
+(defun exec-selected-in-julia-with-module (beginning end)
+  (interactive "r")
+  (setq julia-current-module-name (file-name-base (buffer-name)))
+  (if (use-region-p)   (setq julia-command (buffer-substring beginning end)) 
+    (setq julia-command (thing-at-point `symbol))
+    )
+  (setq julia-command (replace-regexp-in-string "    " "" julia-command))
+  (run-in-julia (format "%s"  julia-command))
+  )
+
+(defun run-in-julia (command)
+  (interactive "scommand:")
+  (save-window-excursion
+    (progn
+      (switch-to-buffer julia-term-name)
+      (term-send-raw-string (format "%s\n" command))
+      )
+    )
+  )
+
+(setq czq-julia-function-pattern "function \\(.*\\)\n")
+(defun exec-function-in-julia ()
+  (interactive )
+  (save-excursion
+    (progn
+    (search-backward-regexp czq-julia-function-pattern)
+    (setq julia-command (match-string 1))
+    ;; (setq julia-current-module-name (file-name-base (buffer-name)))  
+    (run-in-julia (format "%s"  julia-command)))))
+
+(defun  define-julia-keys ()
+  (interactive)
+  (define-key julia-mode-map (kbd "C-x C-e") `exec-selected-in-julia-with-module)
+  (define-key julia-mode-map (kbd "C-x C-r") `exec-function-in-julia)
+  (define-key julia-mode-map (kbd "C-c t") `set-julia-term-name)
+  (define-key julia-mode-map (kbd "C-c i") `import-julia-file)
+  ;; (define-key julia-mode-map (kbd "C-c s") `czq-julia-switch)
+)
+
+
+(add-hook `julia-mode-hook `define-julia-keys)
+

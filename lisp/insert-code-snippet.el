@@ -90,7 +90,7 @@ Java_com_serendipity_chengzhengqian_jsos_JsNative_%s(JNIEnv* env, jobject /* thi
 
 
 (defun insert-python-code (code)
-  (interactive "scython(ci) ti(import tensorflow as tf) tp(tf.placeholder) tf(tf.float32) ts(tf.square), c(comment '''''') u(rl) t(   ), m(if ..main..) cn(connect to buffer ein) r(reload) n(numpy and etc)")
+  (interactive "scython(ci) ti(import tensorflow as tf) tp(tf.placeholder) tf(tf.float32) ts(tf.square), c(comment '''''') u(rl) t(   ), m(if ..main..) cn(connect to buffer ein) r(reload) n(numpy and etc, integral root)")
   (cond ((string= code "ci") (insert "import numpy as np\ncimport numpy as np\n"))
 	((string= code "ti") (insert "import tensorflow as tf\n"))
 	((string= code "tp") (insert "tf.placeholder"))
@@ -105,12 +105,13 @@ Java_com_serendipity_chengzhengqian_jsos_JsNative_%s(JNIEnv* env, jobject /* thi
 	))
 
 (defun insert-haskell-code (code)
-  (interactive "sd(efine) a(->) n(notion ::) t(type =>) l(language {-# #-})")
+  (interactive "sd(efine) a(->) n(notion ::) t(type =>) l(language {-# #-} f(oreign))")
   (cond
    ((string= code "d") (call-interactively `insert-haskell-definition))
    ((string= code "a") (insert " -> "))
    ((string= code "n") (insert " :: "))
    ((string= code "t") (insert " => "))
+   ((string= code "f") (call-interactively `insert-foreign-call))
    ((string= code "l") (progn (insert "{-# LANGUAGE  #-}") (backward-char 4)))
    ))
 
