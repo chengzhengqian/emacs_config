@@ -88,7 +88,6 @@
 
 (require `my-dict)
 (require `w3m-agent)
-(require `mu4e-settings)
 
 (defun czq-toggle-node ()
   (interactive)
@@ -164,5 +163,14 @@
 (setq haskell-program-name "stack ghci")
 
 (require `cling)
+;; <<<<<<< Updated upstream
 (require `czq-python)
 (require `czq-julia)
+;; =======
+(require `python)
+
+
+;; there are some bugs
+;; (require `mu4e-settings)
+;; >>>>>>> Stashed changes
+
