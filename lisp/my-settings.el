@@ -164,4 +164,5 @@
 (setq haskell-program-name "stack ghci")
 
 (require `cling)
-(require `python)
+(require `czq-python)
+(require `czq-julia)
