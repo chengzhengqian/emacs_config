@@ -75,7 +75,13 @@
   (rename-buffer name)
   (message (format "start term %s." name))
 )
-
+(defun clear-term ()
+  (interactive)
+  (term-line-mode)
+  (mark-whole-buffer)
+  (call-interactively `kill-region)
+  (term-char-mode)
+  (term-send-raw-string "\n"))
 ;; intero is quite slow, disable it
 ;; (add-hook `haskell-mode-hook `intero-mode)
 
@@ -174,3 +180,7 @@
 ;; (require `mu4e-settings)
 ;; >>>>>>> Stashed changes
 
+(add-to-list `load-path "~/.emacs.d/lisp/scala")
+(require `czq-scala)
+(add-to-list `load-path "~/.emacs.d/lisp/nodejs")
+(require `czq-nodejs)
