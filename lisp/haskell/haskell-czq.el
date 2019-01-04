@@ -3,6 +3,11 @@
 ;; the default path for ghci is pwd
 (setq haskell-libs "-lLLVMWRAP -lLLVMDEBUG")
 (setq haskell-libs "")
+(defun set-haskell-term-name (name)
+  (interactive "st(name):")
+  (setq haskell-term-name (format "t%s" name))
+  (message haskell-term-name)
+  )
 
 (defun insert-haskell-definition (name)
   (interactive "sname:")
@@ -41,6 +46,20 @@
    )
   )
 
+(defun just-load-haskell-file ()
+  (interactive)
+  (setq current-haskell-file-name (buffer-name))
+  (save-excursion
+   (save-window-excursion
+     (progn
+       (switch-to-buffer haskell-term-name)
+       ;; (term-send-raw-string ":quit\n")
+       ;; (sleep-for 0.1)
+       ;; (term-send-raw-string (format "stack ghci --ghci-options \"-L`pwd` %s\"\n"  haskell-libs))
+       (term-send-raw-string (format ":load %s\n" current-haskell-file-name))))
+   )
+  )
+
 
 
 
@@ -71,6 +90,7 @@
 (defun define-haskell-interactive-key ()
   (interactive)
   (define-key haskell-mode-map (kbd "C-x C-r") `load-haskell-file)
+  (define-key haskell-mode-map (kbd "C-x C-l") `just-load-haskell-file)
   (define-key haskell-mode-map (kbd "C-x C-e") `exec-selected-in-haskell)
   (define-key haskell-mode-map (kbd "C-c C-i") `get-info-selected-in-haskell)
   )

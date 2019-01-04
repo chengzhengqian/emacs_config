@@ -3,7 +3,7 @@
 (defun import-python-file ()
   (interactive)
   (setq current-python-file (file-name-base (buffer-name)))
-  (run-in-python (format "import %s" current-python-file))
+  (run-in-python (format "from %s import *" current-python-file))
   )
 (defun set-python-term-name (name)
   (interactive "st(name):")
@@ -14,7 +14,8 @@
   (interactive "r")
   (if (use-region-p)   (setq python-command (buffer-substring beginning end)) 
     (setq python-command (thing-at-point `symbol))
-      )
+    )
+  (setq python-command  (replace-regexp-in-string "    " "" python-command))
   (run-in-python python-command)
   )
 
@@ -29,13 +30,12 @@
 
 (defun run-in-python (command)
   (interactive "scommand:")
-  (save-window-excursion
+
+  (save-current-buffer
     (progn
-      (switch-to-buffer python-term-name)
-      (term-send-raw-string (format "%s\n" command))
-      )
-    )
-  )
+      (set-buffer python-term-name)
+      (term-send-raw-string (format "%s\n" command)))
+    ))
 
 (setq czq-python-function-pattern "def \\(.*\\):\n")
 (defun exec-function-in-python ()
@@ -45,11 +45,11 @@
     (search-backward-regexp czq-python-function-pattern)
     (setq python-command (match-string 1))
     (setq python-current-module-name (file-name-base (buffer-name)))  
-    (run-in-python (format "%s.%s" python-current-module-name python-command)))))
+    (run-in-python (format "%s" python-command)))))
 
 (defun  define-python-keys ()
   (interactive)
-  (define-key python-mode-map (kbd "C-x C-e") `exec-selected-in-python-with-module)
+  (define-key python-mode-map (kbd "C-x C-e") `exec-selected-in-python)
   (define-key python-mode-map (kbd "C-x C-r") `exec-function-in-python)
   (define-key python-mode-map (kbd "C-c t") `set-python-term-name)
   (define-key python-mode-map (kbd "C-c i") `import-python-file)
