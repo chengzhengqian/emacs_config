@@ -42,12 +42,12 @@
    ))
 
 (setq czq-jni-template "extern \"C\" JNIEXPORT j%s JNICALL
-Java_com_serendipity_chengzhengqian_jsos_JsNative_%s(JNIEnv* env, jobject /* this */, long ctx_) {\n  duk_context * ctx=(duk_context*)ctx_;\n\n}\n\n\npublic static native %s %s(long context);")
+Java_czq_javascript_core_Eval_%s(JNIEnv* env, jobject /* this */, long ctx_) {\n  duk_context * ctx=(duk_context*)ctx_;\n\n}\n\n\npublic static native %s %s(long context);")
 
 (defun insert-jni-function (return-type name)
   (interactive "sreturn-type:\nsname")
-  (insert (format czq-jni-template return-type name return-type name))
-  )
+  (insert (format czq-jni-template return-type name return-type name)))
+
 (setq czq-duktape-register-funciton "registerFuncGlobal(\"%s\", %s, ctx);")
 (setq czq-dultape-c-function-template "duk_ret_t %s(duk_context *ctx){ \n\n}")
 (defun insert-duktape-register-function (name)
@@ -105,12 +105,13 @@ Java_com_serendipity_chengzhengqian_jsos_JsNative_%s(JNIEnv* env, jobject /* thi
 	))
 
 (defun insert-haskell-code (code)
-  (interactive "sd(efine) a(->) n(notion ::) t(type =>) l(language {-# #-})")
+  (interactive "sd(efine) a(->) n(notion ::) t(type =>) l(language {-# #-} f(oreign))")
   (cond
    ((string= code "d") (call-interactively `insert-haskell-definition))
    ((string= code "a") (insert " -> "))
    ((string= code "n") (insert " :: "))
    ((string= code "t") (insert " => "))
+   ((string= code "f") (call-interactively `insert-foreign-call))
    ((string= code "l") (progn (insert "{-# LANGUAGE  #-}") (backward-char 4)))
    ))
 
@@ -155,7 +156,6 @@ Java_com_serendipity_chengzhengqian_jsos_JsNative_%s(JNIEnv* env, jobject /* thi
   (interactive)
   (setq CZQ_file_extension (file-name-extension (buffer-name)))
   (cond
-   ((string-prefix-p  "hs" CZQ_file_extension) (call-interactively `format-haskell-code))
 
    ((string-prefix-p  "h" CZQ_file_extension) (call-interactively `format-cpp-code))
    ((string-prefix-p "c" CZQ_file_extension) (call-interactively `format-cpp-code))

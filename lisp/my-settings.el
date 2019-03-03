@@ -184,3 +184,4 @@
 (require `czq-scala)
 (add-to-list `load-path "~/.emacs.d/lisp/nodejs")
 (require `czq-nodejs)
+(require `czq-jsos)

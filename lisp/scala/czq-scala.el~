@@ -10,18 +10,6 @@
   (deactivate-mark))
 
 (setq czq-scala-term-name "tscala")
-(defun set-scala-term-name (name)
-  (interactive "st(name):")
-  (setq czq-scala-term-name (format "t%s" name))
-  (message czq-scala-term-name)
-  )
-
-(defun czq-scala-import-current-file ()
-  (interactive)
-  (setq czq-scala-script-name (file-name-base (buffer-name)))
-  (save-current-buffer
-    (set-buffer czq-scala-term-name)
-    (term-send-raw-string (format "import $file.%s\n" czq-scala-script-name))))
 (setq scala-promp-pos 7)
 (defun czq-scala-send-input-line-with-additional-string (s)
   (czq-scala-get-input-before-line)
@@ -58,12 +46,6 @@
 
 
 
-(defun define-scala-keys ()
-  (interactive)
- (define-key scala-mode-map (kbd "C-x p") `czq-scala-send-input-line-with-tab)
- (define-key scala-mode-map (kbd "C-x C-e") `czq-scala-send-input-line-with-enter)
- (define-key scala-mode-map (kbd "C-c i") `czq-scala-import-current-file))
-
-(add-to-list `auto-mode-alist `("\\.sc\\'" . scala-mode))
-
+(define-key scala-mode-map (kbd "C-x p") `czq-scala-send-input-line-with-tab)
+(define-key scala-mode-map (kbd "C-x C-e") `czq-scala-send-input-line-with-enter)
 

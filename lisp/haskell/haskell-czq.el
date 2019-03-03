@@ -91,6 +91,7 @@
   (interactive)
   (define-key haskell-mode-map (kbd "C-x C-r") `load-haskell-file)
   (define-key haskell-mode-map (kbd "C-x C-l") `just-load-haskell-file)
+  (define-key haskell-mode-map (kbd "C-c C-l") `just-load-haskell-file)
   (define-key haskell-mode-map (kbd "C-x C-e") `exec-selected-in-haskell)
   (define-key haskell-mode-map (kbd "C-c C-i") `get-info-selected-in-haskell)
   )
