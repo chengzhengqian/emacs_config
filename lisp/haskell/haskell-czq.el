@@ -90,6 +90,7 @@
 (defun define-haskell-interactive-key ()
   (interactive)
   (define-key haskell-mode-map (kbd "C-x C-r") `load-haskell-file)
+  (define-key haskell-mode-map (kbd "C-c i") `just-load-haskell-file)
   (define-key haskell-mode-map (kbd "C-x C-l") `just-load-haskell-file)
   (define-key haskell-mode-map (kbd "C-c C-l") `just-load-haskell-file)
   (define-key haskell-mode-map (kbd "C-x C-e") `exec-selected-in-haskell)

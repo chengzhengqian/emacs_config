@@ -41,6 +41,9 @@
       (set-buffer julia-term-name)
       (term-send-raw-string (format "%s\n" command))
       )))
+(defun cd-to-directory-of-current-file-in-julia ()
+  (interactive)
+  (run-in-julia (format "cd(\"%s\")" default-directory)))
 
 (setq czq-julia-function-pattern "function \\(.*\\)\n")
 (defun exec-function-in-julia ()
@@ -60,6 +63,7 @@
   (define-key julia-mode-map (kbd "C-c i") `import-julia-file)
   (define-key julia-mode-map (kbd "C-c C-i") `import-julia-file)
   (define-key julia-mode-map (kbd "C-x j") `julia-insert-snippet)
+  (define-key julia-mode-map (kbd "C-c c") `cd-to-directory-of-current-file-in-julia)
   ;; (define-key julia-mode-map (kbd "C-c s") `czq-julia-switch)
   )
 
