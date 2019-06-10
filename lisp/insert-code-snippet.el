@@ -15,7 +15,7 @@
 (require `java-snippet)
 
 (defun insert-snippet-cpp (code)
-  (interactive "sinsert i(mplement(io,implement only) and declare) cm(cython module) n(amespace) cl(ass) w(wrap) h(ead prevent) fl(or loop) d(ouble dp:*, f,fp, float) g(__global__) #(include) l(cublas h, handle v,set variable) c(comments /**/) dk register(dr) c-function(dc) jni(ji):")
+  (interactive "sinsert i(mplement(io,implement only) and declare) cm(cython module) n(amespace) cl(ass) w(wrap) h(ead prevent) fl(or loop) d(ouble dp:*, f,fp, float) g(__global__) #(include) l(cublas h, handle v,set variable) c(comments /**/) dk register(dr) c-function(dc) jni(ji) f(lex)(c(ode), r(ules)):")
   (cond
    ((string= code "cm") (call-interactively `insert-cpp-python-module-from-head-file))
    ((string= code "h") (call-interactively `insert-code-cpp-head-prevent-string))
@@ -38,7 +38,9 @@
    ((string= code "#") (insert "#include "))
    ((string= code "lh") (call-interactively `insert-cublasHandle-code-with-init-and-destroy))
    ((string= code "lv") (call-interactively `insert-cublasDeviceVariable-code-with-init-and-destroy))
-
+   ((string= code "fc") (progn (insert "%{\n\n%}\n") (previous-line 2)))
+   ((string= code "fr") (progn (insert "%%\n\n%%\n") (previous-line 2)))
+   
    ))
 
 (setq czq-jni-template "extern \"C\" JNIEXPORT j%s JNICALL
@@ -116,8 +118,9 @@ Java_com_serendipity_chengzhengqian_jsos_JsNative_%s(JNIEnv* env, jobject /* thi
    ))
 
 (defun insert-html-code (code)
-  (interactive "st(ag) j(query tmpl) c(anvas) s(cript) f(function) p(check javascript properties,o,f,n,s)")
-  (cond ((string= code "t") (call-interactively `insert-xml-tag))
+  (interactive "st(ag) j(query tmpl) c(anvas) s(cript) f(function) p(check javascript properties,o,f,n,s), a(link)")
+  (cond ((string= code "a") (call-interactively `insert-html-link))
+   ((string= code "t") (call-interactively `insert-xml-tag))
 	((string= code "j") (call-interactively `insert-jquery-empty-template))
 	((string= code "f") (call-interactively `insert-javascript-function))
 	((string= code "c") (insert-xml-tag "canvas"))

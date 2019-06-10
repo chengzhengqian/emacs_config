@@ -5,10 +5,12 @@
 (setq llvm-loads "#pragma cling add_library_path(\"/home/chengzhengqian/cloud/llvm_shared\")\n.L libLLVMRuntimeDyld.so\n.L libLLVMExecutionEngine.so\n.L libLLVMObject.so\n.L libLLVMMCJIT.so\n")
 (setq guile2-2-loads "#pragma cling add_library_path(\"/home/chengzhengqian/cloud/guile2.2/lib\")\n.I /home/chengzhengqian/cloud/guile2.2/include/guile/2.2\n#include \"libguile.h\"\n.L libguile-2.2.so")
 (setq boost-loads ".I /home/chengzhengqian/share_workspace/boost_1_65_1/\n")
+(setq opencl-nvidia-loads "#pragma cling add_library_path(\"/usr/local/cuda/lib64/\")\n.L /usr/local/cuda/lib64/libOpenCL.so\n.I /usr/local/cuda/include\n#include \"CL/cl.h\"")
 ;; (setq prelude-loads `(,llvm-loads))
 ;; (setq prelude-loads `(,guile2-2-loads))
 ;; (setq prelude-loads `())
-(setq prelude-loads `(,boost-loads ,llvm-loads))
+;; (setq prelude-loads `(,boost-loads ,llvm-loads))
+(setq prelude-loads `(,opencl-nvidia-loads))
 (setq cling-sync-dir-cmd "./sync.sh\n")
 (setq cling-term-name "tcling")
 (setq info-path-cling "/home/chengzhengqian/cling_info")
@@ -55,6 +57,7 @@
 
 (defun run-cling-from-other-buffer ()
   (interactive)
+  (save-buffer)
   (save-window-excursion
     (progn
       (setq cling-cpp-current `(,(replace-regexp-in-string "<.*>" "" (buffer-name))))
@@ -62,9 +65,8 @@
       (save-current-buffer
 	(set-buffer cling-term-name)
 	(call-interactively `run-cling))
-      )
-    )
-  )
+      )))
+
 (defun exec-selected-in-cling (beginning end)
   (interactive "r")
   (if (use-region-p)   (setq cling-command (buffer-substring beginning end)) 

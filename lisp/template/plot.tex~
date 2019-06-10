@@ -1,0 +1,18 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows,decorations.markings,decorations.pathmorphing,patterns,positioning,calc,shapes}
+\usepackage{adjustbox,resizegather}\usepackage{xparse}
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+\begin{document}
+\begin{tikzpicture}
+
+  \pgfplotstableread{FILENAME}{\mydata}
+
+  \begin{axis}[xmin=0.0,ymin=0.0,xmax=0.5,ymax=0.5,title=TITLE]
+    %% \addplot[red] table [ x index=0, y index=1]{\mydata};
+    %% \legend{alphaM}
+  \end{axis}
+
+\end{tikzpicture}
+\end{document}

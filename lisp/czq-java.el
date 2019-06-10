@@ -1,0 +1,93 @@
+(provide `czq-java)
+(setq java-term-name "tjava")
+(defun import-java-file ()
+  (interactive)
+  (setq current-java-file (file-name-base (buffer-name)))
+  (run-in-java (format "from %s import *" current-java-file))
+  )
+(defun set-java-term-name (name)
+  (interactive "st(name):")
+  (make-local-variable `java-term-name)
+  (setq java-term-name (format "t%s" name))
+  (message java-term-name)
+  )
+
+(defun show-java-term-name ()
+  (interactive)
+  (message (format "current term %s" java-term-name)))
+
+(defun exec-selected-in-java (beginning end)
+  (interactive "r")
+  (if (use-region-p)   (setq java-command (buffer-substring beginning end)) 
+    (setq java-command (thing-at-point `symbol))
+    )
+  (setq java-command  (replace-regexp-in-string "    " "" java-command))
+  (run-in-java java-command)
+  )
+
+(defun exec-selected-in-java-with-module (beginning end)
+  (interactive "r")
+  (setq java-current-module-name (file-name-base (buffer-name)))
+  (if (use-region-p)   (setq java-command (buffer-substring beginning end)) 
+    (setq java-command (thing-at-point `symbol))
+      )
+  (run-in-java (format "%s.%s" java-current-module-name java-command))
+  )
+
+(defun run-in-java (command)
+  (interactive "scommand:")
+
+  (save-current-buffer
+    (progn
+      (set-buffer java-term-name)
+      (term-send-raw-string (format "%s\n" command)))
+    ))
+
+(setq czq-java-function-pattern "def \\(.*\\):\n")
+(defun exec-function-in-java ()
+  (interactive )
+  (save-excursion
+    (progn
+    (search-backward-regexp czq-java-function-pattern)
+    (setq java-command (match-string 1))
+    (setq java-current-module-name (file-name-base (buffer-name)))  
+    (run-in-java (format "%s" java-command)))))
+
+(defun czq-java-change-directory ()
+  (interactive)
+  (setq czq-java-current-directory (buffer-file-name))
+  (run-in-java ))
+(defun  define-java-keys ()
+  (interactive)
+  (define-key java-mode-map (kbd "C-x C-e") `exec-selected-in-java)
+  (define-key java-mode-map (kbd "C-x C-r") `exec-function-in-java)
+  (define-key java-mode-map (kbd "C-c t") `set-java-term-name)
+  (define-key java-mode-map (kbd "C-c i") `import-java-file)
+  (define-key java-mode-map (kbd "C-c s") `czq-java-switch)
+  (define-key java-mode-map (kbd "C-c c") `czq-java-change-directory)
+)
+
+
+;;we extent it some common case
+;; (defun czq-switch-to (old new)
+;;   (interactive "sold:\nsnew")
+;;   (setq czq-old-buffer-name (buffer-name))
+;;   (setq czq-new-buffer-name (replace-regexp-in-string old new czq-old-buffer-name))
+;;   (find-file czq-new-buffer-name)
+;;   )
+
+;; (defun czq-java-to-gene ()
+;;   (interactive)
+;;   (czq-switch-to "plot\\.py" "gene.py")
+;;   )
+;; (defun czq-java-to-plot ()
+;;   (interactive)
+;;   (czq-switch-to "gene\\.py" "plot.py")
+;;   )
+
+;; (defun czq-java-switch (target)
+;;   (interactive "starget(p,g):")
+;;   (cond
+;;    ((string= target "p") (czq-java-to-plot))
+;;    ((string= target "g") (czq-java-to-gene))
+;;    ))

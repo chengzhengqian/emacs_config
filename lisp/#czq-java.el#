@@ -15,6 +15,7 @@
 (defun show-python-term-name ()
   (interactive)
   (message (format "current term %s" python-term-name)))
+
 (defun exec-selected-in-python (beginning end)
   (interactive "r")
   (if (use-region-p)   (setq python-command (buffer-substring beginning end)) 
@@ -52,6 +53,10 @@
     (setq python-current-module-name (file-name-base (buffer-name)))  
     (run-in-python (format "%s" python-command)))))
 
+(defun czq-python-change-directory ()
+  (interactive)
+  (setq czq-python-current-directory (buffer-file-name))
+  (run-in-python ))
 (defun  define-python-keys ()
   (interactive)
   (define-key python-mode-map (kbd "C-x C-e") `exec-selected-in-python)
@@ -59,6 +64,7 @@
   (define-key python-mode-map (kbd "C-c t") `set-python-term-name)
   (define-key python-mode-map (kbd "C-c i") `import-python-file)
   (define-key python-mode-map (kbd "C-c s") `czq-python-switch)
+  (define-key python-mode-map (kbd "C-c c") `czq-python-change-directory)
 )
 
 

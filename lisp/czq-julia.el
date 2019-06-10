@@ -55,9 +55,14 @@
     ;; (setq julia-current-module-name (file-name-base (buffer-name)))  
     (run-in-julia (format "%s"  julia-command)))))
 
+(defun get-information-in-julia-for-selected  (beginning end)
+  (interactive "r")
+  (exec-selected-in-julia-with-wrap beginning end  "?%s"))
+
 (defun  define-julia-keys ()
   (interactive)
   (define-key julia-mode-map (kbd "C-x C-e") `exec-selected-in-julia-with-module)
+  (define-key julia-mode-map (kbd "C-x C-i") `get-information-in-julia-for-selected)
   (define-key julia-mode-map (kbd "C-x C-r") `exec-function-in-julia)
   (define-key julia-mode-map (kbd "C-c t") `set-julia-term-name)
   (define-key julia-mode-map (kbd "C-c i") `import-julia-file)

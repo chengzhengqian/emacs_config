@@ -41,9 +41,10 @@
   (save-current-buffer
     (set-buffer czq-scala-term-name)
     (term-send-raw-string "\C-a\C-k")
-    (term-send-raw-string "{\n")
+    ;; (term-send-raw-string "{\n")
     (term-send-raw-string czq-scala-region)
-    (term-send-raw-string "\n}\n")
+    ;; (term-send-raw-string "\n}\n")
+    (term-send-raw-string "\n")
     ))
 
    

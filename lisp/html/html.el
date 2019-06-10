@@ -17,3 +17,8 @@
   (insert (format "function %s(%s){};" name args))
   (backward-char 2)
   )
+
+(defun insert-html-link (name url)
+  (interactive "sname:\nsurl:\n")
+  (insert (format "<a href=\"%s\">%s</a>" url name)))
+

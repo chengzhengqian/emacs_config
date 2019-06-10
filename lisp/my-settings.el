@@ -185,3 +185,9 @@
 (add-to-list `load-path "~/.emacs.d/lisp/nodejs")
 (require `czq-nodejs)
 (require `czq-jsos)
+(require `czq-latex)
+
+
+;; flex
+(add-to-list 'auto-mode-alist '("\\.l\\'" . c-mode))
+(setq nrepl-use-ssh-fallback-for-remote-hosts `t)
