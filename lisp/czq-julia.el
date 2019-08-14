@@ -10,18 +10,23 @@
   (setq julia-term-name (format "t%s" name))
   (message julia-term-name)
   )
-(defun exec-selected-in-julia (beginning end)
-  (interactive "r")
-  (if (use-region-p)   (setq julia-command (buffer-substring beginning end)) 
-    (setq julia-command (thing-at-point `symbol))
-      )
-  (run-in-julia julia-command)
-  )
+;; (defun exec-selected-in-julia (beginning end)
+;;   (interactive "r")
+;;   (if (use-region-p)   (setq julia-command (buffer-substring beginning end)) 
+;;     (setq julia-command (thing-at-point `symbol))
+;;       )
+;;   (run-in-julia julia-command)
+;;   )
 
-(defun exec-selected-in-julia-with-module (beginning end)
+(defun exec-selected-in-julia (beginning end)
   (interactive "r")
   ;; (setq julia-current-module-name (file-name-base (buffer-name)))
   (exec-selected-in-julia-with-wrap beginning end  "%s"))
+
+(defun find-doc--selected-in-julia (beginning end)
+  (interactive "r")
+  ;; (setq julia-current-module-name (file-name-base (buffer-name)))
+  (exec-selected-in-julia-with-wrap beginning end  "?%s"))
 
 (defun exec-selected-in-julia-with-less (beginning end)
   (interactive "r")
@@ -41,6 +46,7 @@
       (set-buffer julia-term-name)
       (term-send-raw-string (format "%s\n" command))
       )))
+
 (defun cd-to-directory-of-current-file-in-julia ()
   (interactive)
   (run-in-julia (format "cd(\"%s\")" default-directory)))
@@ -61,7 +67,7 @@
 
 (defun  define-julia-keys ()
   (interactive)
-  (define-key julia-mode-map (kbd "C-x C-e") `exec-selected-in-julia-with-module)
+  (define-key julia-mode-map (kbd "C-x C-e") `exec-selected-in-julia)
   (define-key julia-mode-map (kbd "C-x C-i") `get-information-in-julia-for-selected)
   (define-key julia-mode-map (kbd "C-x C-r") `exec-function-in-julia)
   (define-key julia-mode-map (kbd "C-c t") `set-julia-term-name)
@@ -69,14 +75,17 @@
   (define-key julia-mode-map (kbd "C-c C-i") `julia-insert-snippet)
   (define-key julia-mode-map (kbd "C-x j") `julia-insert-snippet)
   (define-key julia-mode-map (kbd "C-c c") `cd-to-directory-of-current-file-in-julia)
-  ;; (define-key julia-mode-map (kbd "C-c s") `czq-julia-switch)
+  (define-key julia-mode-map (kbd "C-c d") `find-doc--selected-in-julia)
+
   )
 
 (defun julia-insert-snippet (tag)
-  (interactive "st(test)")
-  (cond ((string= tag "t") (progn (insert "@test ==") (backward-char 2)))
-	(t (message (format "unknow %s" tag)))
-	))
+  (interactive "st(test) d(oc)")
+  (cond
+   ((string= tag "t") (progn (insert "@test ==") (backward-char 2)))
+   ((string= tag "d") (progn (insert "\"\"\"\n\n\"\"\"") (previous-line) (beginning-of-line)))
+   (t (message (format "unknow %s" tag)))
+   ))
 
 
 

@@ -172,13 +172,13 @@
 ;; <<<<<<< Updated upstream
 (require `czq-python)
 (require `czq-julia)
-;; =======
+
 ;; (require `python)
 
 
 ;; there are some bugs
-;; (require `mu4e-settings)
-;; >>>>>>> Stashed changes
+;; (require `mu4e-settings) 
+;;  this is not set on every device
 
 (add-to-list `load-path "~/.emacs.d/lisp/scala")
 (require `czq-scala)
@@ -191,3 +191,7 @@
 ;; flex
 (add-to-list 'auto-mode-alist '("\\.l\\'" . c-mode))
 (setq nrepl-use-ssh-fallback-for-remote-hosts `t)
+(require `czq-java)
+(require `czq-kotlin)
+
+(require `regexpl)

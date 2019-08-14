@@ -32,6 +32,20 @@
   (define-key latex-mode-map (kbd "C-c l")  `insert-latex-code-snippet)
   (define-key latex-mode-map (kbd "C-c p")  `compile-latex-to-pdf))
 
+(setq czq-latex-imenu-expression
+      `(("Command" "\\newcommand{.\\([^}]*\\)" 1)
+	("DocumentCommand" "\\NewDocumentCommand{.\\([^}]*\\)" 1)
+	("Math","\\DeclareMathOperator\\*{.\\([^}]*\\)" 1)))
 
+
+(setq czq-imenu-default-function imenu-create-index-function)
+(defun set-czq-latex-command-imenu-expression ()
+  ;; this will overwrite the default imenu behavior for a given buffer with latex command filters
+  (interactive)
+  (make-variable-buffer-local `imenu-generic-expression)
+  (make-variable-buffer-local `imenu-create-index-function)
+  ;; we need to overwrite the default value of imenu-create-index-function, which is bind to latex-...
+  (setq imenu-create-index-function czq-imenu-default-function)
+  (setq imenu-generic-expression czq-latex-imenu-expression))
 
 

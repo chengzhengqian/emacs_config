@@ -133,3 +133,12 @@
 
 (setq gnus-dired-mail-mode 'mu4e-user-agent)
 (add-hook 'dired-mode-hook 'turn-on-gnus-dired-mode)
+
+(setq mu4e-attachment-dir "~/Downloads")
+
+;; use C-c C-a, add attachment
+;;  C-c C-c send
+
+(setq mu4e-view-prefer-html t)
+(setq mu4e-html2text-command "html2text -utf8 -width 72")
+
