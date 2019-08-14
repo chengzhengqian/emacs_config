@@ -66,7 +66,7 @@
   (define-key julia-mode-map (kbd "C-x C-r") `exec-function-in-julia)
   (define-key julia-mode-map (kbd "C-c t") `set-julia-term-name)
   (define-key julia-mode-map (kbd "C-c i") `import-julia-file)
-  (define-key julia-mode-map (kbd "C-c C-i") `import-julia-file)
+  (define-key julia-mode-map (kbd "C-c C-i") `julia-insert-snippet)
   (define-key julia-mode-map (kbd "C-x j") `julia-insert-snippet)
   (define-key julia-mode-map (kbd "C-c c") `cd-to-directory-of-current-file-in-julia)
   ;; (define-key julia-mode-map (kbd "C-c s") `czq-julia-switch)
