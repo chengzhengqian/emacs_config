@@ -78,7 +78,6 @@
   ;; (define-key julia-mode-map (kbd "C-x j") `julia-insert-snippet)
   (define-key julia-mode-map (kbd "C-c c") `cd-to-directory-of-current-file-in-julia)
   (define-key julia-mode-map (kbd "C-c d") `find-doc--selected-in-julia)
-
   )
 
 (defun julia-insert-snippet (tag)
