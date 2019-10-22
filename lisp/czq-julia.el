@@ -8,6 +8,7 @@
   )
 (defun set-julia-term-name (name)
   (interactive "st(name):")
+  (make-local-variable `julia-term-name)
   (setq julia-term-name (format "t%s" name))
   (message julia-term-name)
   )
@@ -78,7 +79,7 @@
   ;; (define-key julia-mode-map (kbd "C-x j") `julia-insert-snippet)
   (define-key julia-mode-map (kbd "C-c c") `cd-to-directory-of-current-file-in-julia)
   (define-key julia-mode-map (kbd "C-c d") `find-doc--selected-in-julia)
-
+  (define-key julia-mode-map (kbd "C-c p") `czq-julia-autocomplete)
   )
 
 (defun julia-insert-snippet (tag)
@@ -93,3 +94,5 @@
 
 (add-hook `julia-mode-hook `define-julia-keys)
 
+(add-to-list `load-path "~/.emacs.d/lisp/julia")
+(require `julia-client)

@@ -56,8 +56,9 @@
 
 (defun czq-python-change-directory ()
   (interactive)
-  (setq czq-python-current-directory (buffer-file-name))
-  (run-in-python ))
+  (setq czq-python-current-directory (file-name-directory (buffer-file-name)))
+  (run-in-python (format "cd %s" czq-python-current-directory)))
+
 (defun  define-python-keys ()
   (interactive)
   (define-key python-mode-map (kbd "C-x C-e") `exec-selected-in-python)

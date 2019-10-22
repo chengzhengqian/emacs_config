@@ -171,6 +171,7 @@
 (require `cling)
 ;; <<<<<<< Updated upstream
 (require `czq-python)
+(add-to-list 'auto-mode-alist '("\\.jl\\'" . julia-mode))
 (require `czq-julia)
 
 ;; (require `python)
@@ -195,3 +196,8 @@
 (require `czq-kotlin)
 
 (require `regexpl)
+(require `czq-gnuplot)
+
+(add-to-list `load-path "~/.emacs.d/lisp/haskell")
+(require `czq-haskell)
+(require `czq-zoom)

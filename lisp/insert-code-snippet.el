@@ -9,7 +9,7 @@
 (add-to-list 'load-path "~/.emacs.d/lisp/java/")
 (require `cython-cpp)
 (require `cuda-cpp)
-(require `haskell-czq)
+(require `czq-haskell)
 (require `html)
 (require `realgud)
 (require `java-snippet)

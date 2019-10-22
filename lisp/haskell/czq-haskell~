@@ -1,12 +1,13 @@
 (provide `haskell-czq)
-(setq haskell-term-name "thaskell")
+(setq czq-haskell-term-name "thaskell")
 ;; the default path for ghci is pwd
 (setq haskell-libs "-lLLVMWRAP -lLLVMDEBUG")
 (setq haskell-libs "")
-(defun set-haskell-term-name (name)
+(defun set-czq-haskell-term-name (name)
   (interactive "st(name):")
-  (setq haskell-term-name (format "t%s" name))
-  (message haskell-term-name)
+  (make-local-variable `czq-haskell-term-name)
+  (setq czq-haskell-term-name (format "t%s" name))
+  (message czq-haskell-term-name)
   )
 
 (defun insert-haskell-definition (name)
@@ -35,29 +36,16 @@
 (defun load-haskell-file ()
   (interactive)
   (setq current-haskell-file-name (buffer-name))
-  (save-excursion
-   (save-window-excursion
-     (progn
-       (switch-to-buffer haskell-term-name)
-       (term-send-raw-string ":quit\n")
-       (sleep-for 0.1)
-       (term-send-raw-string (format "stack ghci --ghci-options \"-L`pwd` %s\"\n"  haskell-libs))
-       (term-send-raw-string (format ":load %s\n" current-haskell-file-name))))
-   )
+  (run-in-haskell ":quit")
+  (sleep-for 0.1)
+  (run-in-haskell (format "stack ghci --ghci-options \"-L`pwd` %s\"\n"  haskell-libs))
+  (run-in-haskell (format ":load %s\n" current-haskell-file-name))
   )
 
 (defun just-load-haskell-file ()
   (interactive)
   (setq current-haskell-file-name (buffer-name))
-  (save-excursion
-   (save-window-excursion
-     (progn
-       (switch-to-buffer haskell-term-name)
-       ;; (term-send-raw-string ":quit\n")
-       ;; (sleep-for 0.1)
-       ;; (term-send-raw-string (format "stack ghci --ghci-options \"-L`pwd` %s\"\n"  haskell-libs))
-       (term-send-raw-string (format ":load %s\n" current-haskell-file-name))))
-   )
+  (run-in-haskell (format ":load %s" current-haskell-file-name))
   )
 
 
@@ -80,11 +68,10 @@
 
 (defun run-in-haskell (command)
   (interactive "scommand:")
-  (save-window-excursion
-    (progn
-      (switch-to-buffer haskell-term-name)
+  (save-current-buffer
+      (set-buffer czq-haskell-term-name)
       (term-send-raw-string (format "%s\n" command))
-      )))
+      ))
 
 
 (defun define-haskell-interactive-key ()
@@ -103,3 +90,26 @@
   (interactive "sname")
   (insert (format czq-haskel-foreign-call-format name name))
   )
+
+(defun czq-haskell-get-input-before-line ()
+  (interactive)
+  (save-excursion
+     (call-interactively `set-mark-command)
+     (beginning-of-line)
+     (setq czq-haskell-input-before-line (buffer-substring (region-beginning) (region-end)))
+     (message czq-haskell-input-before-line))
+  (deactivate-mark))
+
+(defun czq-haskell-send-input-line-with-additional-string (s)
+  (czq-haskell-get-input-before-line)
+  (save-current-buffer
+    (set-buffer czq-haskell-term-name)
+    (term-send-raw-string "\C-a\C-k")
+    (term-send-raw-string czq-haskell-input-before-line)
+    (term-send-raw-string s)
+    ))
+
+
+(defun czq-haskell-send-input-line-with-tab ()
+    (interactive)
+  (czq-haskell-send-input-line-with-additional-string "\t"))

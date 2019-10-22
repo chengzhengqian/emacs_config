@@ -12,6 +12,7 @@
 (setq czq-scala-term-name "tscala")
 (defun set-scala-term-name (name)
   (interactive "st(name):")
+  (make-local-variable `czq-scala-term-name)
   (setq czq-scala-term-name (format "t%s" name))
   (message czq-scala-term-name)
   )
