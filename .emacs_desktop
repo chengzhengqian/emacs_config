@@ -12,14 +12,15 @@
 (package-initialize) ;; You might already have this line
 ;; use elpy as python ide
 (elpy-enable)
-
+(setq elpy-rpc-backend "jedi")
+;; this is good enough,
 
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)  
-
+;; (add-hook 'python-mode-hook 'jedi:setup)
+;; (setq jedi:complete-on-dot t)  
+;; update from w530
 
 ;; After installation of the spkg, you must add something like the
 ;; following to your .emacs:
@@ -113,12 +114,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(blink-cursor-mode nil)
  '(column-number-mode t)
  '(display-time-mode t)
  '(imenu-auto-rescan t)
  '(package-selected-packages
    (quote
-    (origami fsharp-mode yapfify w3m tuareg slime realgud multi-web-mode magit js3-mode jedi intero haskell-emacs ggtags flycheck-irony etags-select elpy ein edit-server ecb cython-mode company-web company-irony company-ghc auto-complete-sage ac-js2 ac-haskell-process 2048-game)))
+    (julia-mode dash-functional dash lsp-mode kotlin-mode racket-mode geiser origami fsharp-mode yapfify w3m tuareg slime realgud multi-web-mode magit js3-mode intero haskell-emacs ggtags flycheck-irony etags-select elpy ein edit-server ecb cython-mode company-web company-irony company-ghc auto-complete-sage ac-js2 ac-haskell-process 2048-game)))
  '(realgud-safe-mode nil)
  '(safe-local-variable-values
    (quote
@@ -133,7 +135,7 @@
 (add-hook 'js-mode-hook 'js2-minor-mode)
 (add-hook 'js2-mode-hook 'ac-js2-mode)
 
-(setq elpy-rpc-backend "jedi")
+
 
 
 
@@ -196,7 +198,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "SpringGreen1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 199 :width normal :foundry "DAMA" :family "Ubuntu Mono"))))
+ '(default ((t (:inherit nil :stipple nil :background "black" :foreground "SpringGreen1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight bold :height 181 :width normal :foundry "adobe" :family "courier"))))
  '(ein:cell-input-area ((t (:background "#202020"))))
  '(header-line ((t (:background "black" :inverse-video nil :box nil))))
  '(minibuffer-prompt ((t (:background "black" :foreground "lightblue" :box nil :weight bold))))
