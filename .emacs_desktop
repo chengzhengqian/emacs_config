@@ -114,7 +114,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(blink-cursor-mode nil)
  '(column-number-mode t)
  '(display-time-mode t)
  '(imenu-auto-rescan t)
@@ -198,7 +197,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "SpringGreen1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight bold :height 181 :width normal :foundry "adobe" :family "courier"))))
+ '(default ((t (:inherit nil :stipple nil :background "black" :foreground "SpringGreen1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 181 :width normal :foundry "PfEd" :family "DejaVu Sans"))))
  '(ein:cell-input-area ((t (:background "#202020"))))
  '(header-line ((t (:background "black" :inverse-video nil :box nil))))
  '(minibuffer-prompt ((t (:background "black" :foreground "lightblue" :box nil :weight bold))))
