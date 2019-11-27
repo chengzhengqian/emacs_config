@@ -1,0 +1,2 @@
+sudo apt install libxaw3dxft8-dev
+./configure --prefix=/home/chengzhengqian/Application_local/emacs/emacs-26.3-lucid --with-x-toolkit=lucid
