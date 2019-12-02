@@ -8,6 +8,28 @@
 
 (provide `my-settings)
 
+(require 'multi-term)
+;; (setq elpy-rpc-python-command "/home/chengzhengqian/anaconda3/bin/python")
+;; (setq elpy-rpc-python-command "/home/chengzhengqian/miniconda3/bin/python")
+
+(if (file-exists-p "/home/chengzhengqian/anaconda3/bin/python")
+    (setq elpy-rpc-python-command "/home/chengzhengqian/anaconda3/bin/python"))
+(if (file-exists-p "/home/chengzhengqian/miniconda3/bin/python")
+    (setq elpy-rpc-python-command "/home/chengzhengqian/miniconda3/bin/python"))
+
+(add-to-list 'load-path "~/.emacs.d/lisp/cython-cpp/")
+(add-to-list 'load-path "~/.emacs.d/lisp/cuda-cpp/")
+(add-to-list 'load-path "~/.emacs.d/lisp/haskell/")
+(add-to-list 'load-path "~/.emacs.d/lisp/html/")
+(add-to-list 'load-path "~/.emacs.d/lisp/java/")
+(require `cython-cpp)
+(require `cuda-cpp)
+(require `czq-haskell)
+(require `html)
+(require `realgud)
+(require `java-snippet)
+(require `insert-code-snippet)
+
 ;; using this as necessary
 ;; (keyboard-translate ?\C-h ?\C-?)
 
@@ -201,3 +223,4 @@
 (add-to-list `load-path "~/.emacs.d/lisp/haskell")
 (require `czq-haskell)
 (require `czq-zoom)
+
