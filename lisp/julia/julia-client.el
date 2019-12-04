@@ -49,6 +49,13 @@
   (interactive)
   (process-send-string czq-julia-stream "!!end\n"))
 
+(setq czq-julia-update-imported-module-command "[(v=eval(s);(typeof(v)==Module)&&(JuliaServer.addModule(s,v);println(\"add $s\"))) for s in names(Main;imported=true)];")
+
+(defun czq-julia-update-imported-module ()
+  (interactive)
+  (run-in-julia czq-julia-update-imported-module-command))
+
+
 ;; (czq-julia-autocomplete "d")
 
 
