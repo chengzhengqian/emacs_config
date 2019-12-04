@@ -10,103 +10,6 @@
               '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (package-initialize) ;; You might already have this line
-;; use elpy as python ide
-(elpy-enable)
-(setq elpy-rpc-backend "jedi")
-;; this is good enough,
-
-(require 'company)
-(add-hook 'after-init-hook 'global-company-mode)
-
-;; (add-hook 'python-mode-hook 'jedi:setup)
-;; (setq jedi:complete-on-dot t)  
-;; update from w530
-
-;; After installation of the spkg, you must add something like the
-;; following to your .emacs:
-
-
-;; =============
-;; irony-mode
-;; =============
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-;; =============
-;; company mode
-;; =============
-(add-hook 'c++-mode-hook 'company-mode)
-(add-hook 'c-mode-hook 'company-mode)
-;; replace the `completion-at-point' and `complete-symbol' bindings in
-;; irony-mode's buffers by irony-mode's function
-(defun my-irony-mode-hook ()
-(define-key irony-mode-map [remap completion-at-point]
-  'irony-completion-at-point-async)
-(define-key irony-mode-map [remap complete-symbol]
-  'irony-completion-at-point-async))
-(add-hook 'irony-mode-hook 'my-irony-mode-hook)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-(eval-after-load 'company
-'(add-to-list 'company-backends 'company-irony))
-;; (optional) adds CC special commands to `company-begin-commands' in order to
-;; trigger completion at interesting places, such as after scope operator
-;;     std::|
-(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
-;; =============
-;; flycheck-mode
-;; =============
-(add-hook 'c++-mode-hook 'flycheck-mode)
-(add-hook 'c-mode-hook 'flycheck-mode)
-(eval-after-load 'flycheck
-'(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
-;; =============
-;; eldoc-mode
-;; =============
-;;(add-hook 'irony-mode-hook 'irony-eldoc)
-;; ==========================================
-;; (optional) bind TAB for indent-or-complete
-;; ==========================================
-(defun irony--check-expansion ()
-(save-excursion
-  (if (looking-at "\\_>") t
-    (backward-char 1)
-    (if (looking-at "\\.") t
-      (backward-char 1)
-      (if (looking-at "->") t nil)))))
-(defun irony--indent-or-complete ()
-"Indent or Complete"
-(interactive)
-(cond ((and (not (use-region-p))
-            (irony--check-expansion))
-       (message "complete")
-       (company-complete-common))
-      (t
-       (message "indent")
-       (call-interactively 'c-indent-line-or-region))))
-(defun irony-mode-keys ()
-"Modify keymaps used by `irony-mode'."
-(local-set-key (kbd "TAB") 'irony--indent-or-complete)
-(local-set-key [tab] 'irony--indent-or-complete))
-(add-hook 'c-mode-common-hook 'irony-mode-keys)
-
-;; (setq sage-shell:sage-root "/home/chengzhengqian/Application/SageMath/") 
-
-
-(add-to-list 'company-backends 'company-web-html)
-(add-to-list 'company-backends 'company-web-jade)
-(add-to-list 'company-backends 'company-web-slim)
-
-(require 'multi-web-mode)
-(setq mweb-default-major-mode 'html-mode)
-(setq mweb-tags 
-  '((php-mode "<\\?php\\|<\\? \\|<\\?=" "\\?>")
-    (js-mode  "<script[^>]*>" "</script>")
-    (css-mode "<style[^>]*>" "</style>")))
-(setq mweb-filename-extensions '("php" "htm" "html" "ctp" "phtml" "php4" "php5"))
-(multi-web-global-mode 1)
-
-
-(autoload 'js3-mode "js3" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js3-mode))
 
 
 (custom-set-variables
@@ -129,67 +32,6 @@
  '(tool-bar-mode nil))
 
 
-
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
-(add-hook 'js-mode-hook 'js2-minor-mode)
-(add-hook 'js2-mode-hook 'ac-js2-mode)
-
-
-
-
-
-
-
-(global-set-key "\M-?" 'etags-select-find-tag-at-point)
-(global-set-key "\M-." 'etags-select-find-tag)
-(add-to-list `auto-mode-alist `("\\.pyx\\'" . cython-mode))
-(add-to-list `auto-mode-alist `("\\.h\\'" . c++-mode))
-(add-to-list `auto-mode-alist `("\\.pxd\\'" . cython-mode))
-
-
-(setq gdb-many-windows 1)
-
-           
-;; (custom-set-faces
-;;  ;; custom-set-faces was added by Custom.
-;;  ;; If you edit it by hand, you could mess it up, so be careful.
-;;  ;; Your init file should contain only one such instance.
-;;  ;; If there is more than one, they won't work right.
-;;  '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 199 :width normal :foundry "DAMA" :family "Ubuntu"))))
-;;  '(ac-completion-face ((t (:foreground "olive drab" :underline t))))
-;;  '(company-tooltip-annotation-selection ((t (:inherit company-tooltip-annotation :background "black" :foreground "white"))))
-;;  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection))))
-;;  '(company-tooltip-selection ((t (:background "black" :foreground "white"))))
-;;  '(cursor ((t (:background "black" :foreground "white"))))
-;;  '(custom-invalid ((t (:background "spring green" :foreground "black"))))
-;;  '(ein:cell-input-area ((t (:background "dark goldenrod"))))
-;;  '(error ((t (:foreground "blue" :weight bold))))
-;;  '(etags-select-highlight-tag-face ((t (:background "black" :foreground "white" :weight bold))))
-;;  '(font-lock-builtin-face ((t (:foreground "#000000"))))
-;;  '(font-lock-keyword-face ((t (:foreground "black" :weight bold))))
-;;  '(font-lock-string-face ((t (:foreground "black"))))
-;;  '(font-lock-type-face ((t (:foreground "black"))))
-;;  '(font-lock-variable-name-face ((t (:foreground "black" :weight light))))
-;;  '(glyphless-char ((t nil)))
-;;  '(highlight-indentation-face ((t (:inherit custom-invalid))))
-;;  '(js2-external-variable ((t (:foreground "black"))))
-;;  '(mode-line ((t (:background "white" :foreground "black" :box (:line-width -1 :style released-button)))))
-;;  '(popup-face ((t (:background "dark violet" :foreground "black"))))
-;;  '(popup-menu-selection-face ((t (:background "black" :foreground "white"))))
-;;  '(popup-tip-face ((t (:background "chartreuse" :foreground "black"))))
-;;  '(region ((t (:background "lime green" :foreground "black"))))
-;;  '(tooltip ((t (:inherit variable-pitch :background "cyan" :foreground "black"))))
-;;  '(warning ((t (:foreground "black" :weight bold))))
-;;  '(widget-field ((t (:background "magenta" :foreground "black")))))
-
-
-(add-hook `js2-mode-hook `ac-js2-setup-auto-complete-mode)
-
-(add-to-list 'load-path "~/.emacs.d/lisp/")
-(require `my-settings)
-;; (require `edit-server)
-;; (edit-server-start)
-
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -200,3 +42,11 @@
  '(header-line ((t (:background "black" :inverse-video nil :box nil))))
  '(minibuffer-prompt ((t (:background "black" :foreground "lightblue" :box nil :weight bold))))
  '(mode-line ((t (:background "black" :box nil :family "DejaVu Sans")))))
+
+
+
+
+(add-to-list 'load-path "~/.emacs.d/lisp/")
+(require `my-settings)
+;; (require `edit-server)
+;; (edit-server-start)
