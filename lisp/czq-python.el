@@ -20,11 +20,18 @@
 (defun exec-selected-in-python (beginning end)
   (interactive "r")
   (if (use-region-p)   (setq python-command (buffer-substring beginning end)) 
-    (setq python-command (thing-at-point `line))
-    )
-  (setq python-command  (replace-regexp-in-string "    " "" python-command))
-  (run-in-python python-command)
+    (setq python-command (thing-at-point `line)))
+  ;; (setq python-command  (replace-regexp-in-string "    " "" python-command))
+  ;; this is not working propertly, it seems ipython now support directly paste?
   )
+
+(defun run-in-python-block-code (command)
+  (interactive "scommand")
+  (run-in-python "%cpaste")
+  (sleep-for 0.1)
+  (run-in-python python-command)
+  (run-in-python "--")
+)
 
 (defun exec-selected-in-python-with-module (beginning end)
   (interactive "r")
