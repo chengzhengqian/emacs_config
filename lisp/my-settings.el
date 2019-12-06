@@ -40,6 +40,9 @@
 (if (file-exists-p "/home/chengzhengqian/miniconda3/bin/python")
     (setq elpy-rpc-python-command "/home/chengzhengqian/miniconda3/bin/python"))
 
+;; it seems that we need to load julia mode here
+(require `julia-mode)
+
 (add-to-list 'load-path "~/.emacs.d/lisp/cython-cpp/")
 (add-to-list 'load-path "~/.emacs.d/lisp/cuda-cpp/")
 (add-to-list 'load-path "~/.emacs.d/lisp/haskell/")
