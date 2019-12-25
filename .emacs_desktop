@@ -201,4 +201,5 @@
  '(ein:cell-input-area ((t (:background "#202020"))))
  '(header-line ((t (:background "black" :inverse-video nil :box nil))))
  '(minibuffer-prompt ((t (:background "black" :foreground "lightblue" :box nil :weight bold))))
- '(mode-line ((t (:background "black" :box nil :family "DejaVu Sans")))))
+ '(mode-line ((t (:background "black" :box nil :family "DejaVu Sans"))))
+ '(mode-line-inactive ((t (:inherit mode-line :background "black" :foreground "springgreen1" :box nil :weight light)))))
