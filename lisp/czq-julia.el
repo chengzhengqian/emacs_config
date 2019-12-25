@@ -80,6 +80,7 @@
   (define-key julia-mode-map (kbd "C-c c") `cd-to-directory-of-current-file-in-julia)
   (define-key julia-mode-map (kbd "C-c d") `find-doc--selected-in-julia)
   (define-key julia-mode-map (kbd "C-c p") `czq-julia-autocomplete)
+  (define-key julia-mode-map (kbd "C-c u") `czq-julia-update-imported-module)
   )
 
 (defun julia-insert-snippet (tag)

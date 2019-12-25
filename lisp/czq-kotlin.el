@@ -38,6 +38,8 @@
   (interactive)
   (message (format "current term %s" kotlin-term-name)))
 
+(setq czq-kotlin-query-method  "methodStartsWith(%s::class.java,\"%s\")" )
+
 (defun kotlin-completion-for-region (beginning end)
   (interactive "r")
   (get-region-or-statement-for-kotlin)
@@ -45,7 +47,7 @@
   (setq czq-kotlin-obj(nth 0 czq-kotlin-completion-targets))
   (setq czq-kotlin-name (nth 1 czq-kotlin-completion-targets))
   (empty-kotlin-output)
-  (run-in-kotlin (format "methodStartsWith(%s::class.java,\"%s\")" czq-kotlin-obj czq-kotlin-name))
+  (run-in-kotlin (format czq-kotlin-query-method czq-kotlin-obj czq-kotlin-name))
   (setq czq-kotlin-str (thing-at-point `symbol))
   (message (format "get: %s" czq-kotlin-obj))
   (sleep-for 0.8)

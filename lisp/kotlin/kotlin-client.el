@@ -14,7 +14,9 @@
   (set-process-filter czq-kotlin-stream 'keep-kotlin-output)
   (message (format "start connection to %s:%s" czq-kotlin-server-ip port)))
 
-
+(defun start-kotlin-server-default ()
+  (interactive)
+  (start-kotlin-server-connection czq-kotlin-server-port))
 
 (defun keep-kotlin-output (process kotlin-output)
   (setq kotlin-kept (cons kotlin-output kotlin-kept)))

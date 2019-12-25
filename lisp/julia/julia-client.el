@@ -5,11 +5,17 @@
 (setq czq-julia-server-port "2000")
 (setq czq-julia-server-ip "192.168.1.103")
 
+
 (defun start-julia-server-connection (port)
   (interactive "sserver port:")
-  (setq czq-julia-stream (open-network-stream "julia-connection" nil czq-julia-server-ip port))
+  (start-julia-server-connection czq-julia-server-ip port))
+
+(defun start-julia-server-connection-with-ip (ip port)
+  (interactive "sserver ip:\nsserver port:")
+  (setq czq-julia-stream (open-network-stream "julia-connection" nil ip port))
   (set-process-filter czq-julia-stream 'keep-output)
   (message (format "start connection to %s:%s" czq-julia-server-ip port)))
+
 ;; Process julia-connection<1> connection broken by remote peer
 
 ;; Process julia-connection<2> connection broken by remote peer
@@ -48,6 +54,13 @@
 (defun czq-julia-end-loop ()
   (interactive)
   (process-send-string czq-julia-stream "!!end\n"))
+
+(setq czq-julia-update-imported-module-command "[(v=eval(s);(typeof(v)==Module)&&(JuliaServer.addModule(s,v);println(\"add $s\"))) for s in names(Main;imported=true)];")
+
+(defun czq-julia-update-imported-module ()
+  (interactive)
+  (run-in-julia czq-julia-update-imported-module-command))
+
 
 ;; (czq-julia-autocomplete "d")
 

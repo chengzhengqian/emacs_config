@@ -70,6 +70,7 @@
   (interactive "scommand:")
   (save-current-buffer
       (set-buffer czq-haskell-term-name)
+      (term-send-raw-string "\C-a\C-k")
       (term-send-raw-string (format "%s\n" command))
       ))
 

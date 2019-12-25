@@ -8,6 +8,55 @@
 
 (provide `my-settings)
 
+(require `package-settings)
+
+;; (setq gdb-many-windows 1)
+
+(global-set-key "\M-?" 'etags-select-find-tag-at-point)
+(global-set-key "\M-." 'etags-select-find-tag)
+(add-to-list `auto-mode-alist `("\\.pyx\\'" . cython-mode))
+(add-to-list `auto-mode-alist `("\\.h\\'" . c++-mode))
+(add-to-list `auto-mode-alist `("\\.pxd\\'" . cython-mode))
+;; javascript mode
+(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-hook 'js-mode-hook 'js2-minor-mode)
+;;the autocomplete does not useful
+;; (add-hook 'js2-mode-hook 'ac-js2-mode)
+;; (add-hook `js2-mode-hook `ac-js2-setup-auto-complete-mode)
+(add-hook 'js2-mode-hook '(lambda () 
+			    (local-set-key "\C-x\C-e" 'js-send-last-sexp)
+			    (local-set-key "\C-\M-x" 'js-send-last-sexp-and-go)
+			    (local-set-key "\C-cb" 'js-send-buffer)
+			    (local-set-key "\C-c\C-b" 'js-send-buffer-and-go)
+			    (local-set-key "\C-cl" 'js-load-file-and-go)
+			    (local-set-key "\C-c\C-r" 'js-send-region)
+			    ))
+
+;; (setq elpy-rpc-python-command "/home/chengzhengqian/anaconda3/bin/python")
+;; (setq elpy-rpc-python-command "/home/chengzhengqian/miniconda3/bin/python")
+
+(if (file-exists-p "/home/chengzhengqian/anaconda3/bin/python")
+    (setq elpy-rpc-python-command "/home/chengzhengqian/anaconda3/bin/python"))
+(if (file-exists-p "/home/chengzhengqian/miniconda3/bin/python")
+    (setq elpy-rpc-python-command "/home/chengzhengqian/miniconda3/bin/python"))
+
+;; it seems that we need to load julia mode here
+(require `julia-mode)
+
+(add-to-list 'load-path "~/.emacs.d/lisp/cython-cpp/")
+(add-to-list 'load-path "~/.emacs.d/lisp/cuda-cpp/")
+(add-to-list 'load-path "~/.emacs.d/lisp/haskell/")
+(add-to-list 'load-path "~/.emacs.d/lisp/html/")
+(add-to-list 'load-path "~/.emacs.d/lisp/java/")
+(require 'multi-term)
+(require `cython-cpp)
+(require `cuda-cpp)
+(require `czq-haskell)
+(require `html)
+(require `realgud)
+(require `java-snippet)
+(require `insert-code-snippet)
+
 ;; using this as necessary
 ;; (keyboard-translate ?\C-h ?\C-?)
 
@@ -201,3 +250,4 @@
 (add-to-list `load-path "~/.emacs.d/lisp/haskell")
 (require `czq-haskell)
 (require `czq-zoom)
+

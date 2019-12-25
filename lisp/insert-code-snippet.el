@@ -1,18 +1,5 @@
 (provide `insert-code-snippet)
 
-(setq elpy-rpc-python-command "/home/chengzhengqian/anaconda3/bin/python")
-
-(add-to-list 'load-path "~/.emacs.d/lisp/cython-cpp/")
-(add-to-list 'load-path "~/.emacs.d/lisp/cuda-cpp/")
-(add-to-list 'load-path "~/.emacs.d/lisp/haskell/")
-(add-to-list 'load-path "~/.emacs.d/lisp/html/")
-(add-to-list 'load-path "~/.emacs.d/lisp/java/")
-(require `cython-cpp)
-(require `cuda-cpp)
-(require `czq-haskell)
-(require `html)
-(require `realgud)
-(require `java-snippet)
 
 (defun insert-snippet-cpp (code)
   (interactive "sinsert i(mplement(io,implement only) and declare) cm(cython module) n(amespace) cl(ass) w(wrap) h(ead prevent) fl(or loop) d(ouble dp:*, f,fp, float) g(__global__) #(include) l(cublas h, handle v,set variable) c(comments /**/) dk register(dr) c-function(dc) jni(ji) f(lex)(c(ode), r(ules)):")
