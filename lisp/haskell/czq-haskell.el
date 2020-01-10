@@ -84,8 +84,8 @@
   (define-key haskell-mode-map (kbd "C-x C-e") `exec-selected-in-haskell)
   (define-key haskell-mode-map (kbd "C-c p") `czq-haskell-send-input-line-with-tab)
   )
-
-(add-hook `haskell-mode-hook `define-haskell-interactive-key)
+;; (remove-hook `haskell-mode-hook `define-haskell-interactive-key)
+;; (add-hook `haskell-mode-hook `define-haskell-interactive-key)
 (setq czq-haskel-foreign-call-format "foreign import ccall \"%s\" %s::IO()")
 (defun insert-foreign-call (name)
   (interactive "sname")
