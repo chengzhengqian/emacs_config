@@ -54,7 +54,7 @@
 (defun exec-selected-in-haskell (beginning end)
   (interactive "r")
   (if (use-region-p)   (setq haskell-command (buffer-substring beginning end)) 
-    (setq haskell-command (thing-at-point `symbol))
+    (setq haskell-command (thing-at-point `line))
       )
   (run-in-haskell haskell-command))
 
