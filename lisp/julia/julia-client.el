@@ -14,7 +14,7 @@
   (interactive "sserver ip:\nsserver port:")
   (setq czq-julia-stream (open-network-stream "julia-connection" nil ip port))
   (set-process-filter czq-julia-stream 'keep-output)
-  (message (format "start connection to %s:%s" czq-julia-server-ip port)))
+  (message (format "start connection to %s:%s" ip port)))
 
 ;; Process julia-connection<1> connection broken by remote peer
 
