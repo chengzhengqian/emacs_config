@@ -8,7 +8,7 @@
 
 (defun start-julia-server-connection (port)
   (interactive "sserver port:")
-  (start-julia-server-connection czq-julia-server-ip port))
+  (start-julia-server-connection-with-ip czq-julia-server-ip port))
 
 (defun start-julia-server-connection-with-ip (ip port)
   (interactive "sserver ip:\nsserver port:")
