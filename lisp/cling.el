@@ -73,7 +73,7 @@
 (defun exec-selected-in-cling (beginning end)
   (interactive "r")
   (if (use-region-p)   (setq cling-command (buffer-substring beginning end)) 
-    (setq cling-command (thing-at-point `symbol))
+    (setq cling-command (thing-at-point `line))
       )
   (run-in-cling cling-command)
   )
