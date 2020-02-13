@@ -31,7 +31,7 @@
   (with-current-buffer czq-latin-buffer-name
       (progn
 	(erase-buffer)
-	(insert CZQ-latin-definition))))
+	(insert (replace-regexp-in-string "\r" "" CZQ-latin-definition)))))
 
 
   ;; (message (replace-regexp-in-string "\r" "" CZQ-latin-definition))
