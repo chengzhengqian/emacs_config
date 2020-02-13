@@ -18,12 +18,25 @@
    )
   czq-word
   )
+
+;; it is more easy to show the output in a buffer
+(setq czq-latin-buffer-name "*latin-words*")
 (defun get-latin-from-words ()
   (interactive)
   (setq CZQ-latin-word (get-ascii-form (thing-at-point `word)))
   (setq CZQ-latin-definition  ( shell-command-to-string (format  "cd /home/chengzhengqian/cloud/word;./words %s"CZQ-latin-word)))
-  (message (replace-regexp-in-string "\r" "" CZQ-latin-definition))
-  )
+  ;; (save-window-excursion
+  ;;   (find-file czq-latin-buffer-name))
+  (get-buffer-create czq-latin-buffer-name)
+  (with-current-buffer czq-latin-buffer-name
+      (progn
+	(erase-buffer)
+	(insert CZQ-latin-definition))))
+
+
+  ;; (message (replace-regexp-in-string "\r" "" CZQ-latin-definition))
+  
+
 
 
 (require `w3m)
