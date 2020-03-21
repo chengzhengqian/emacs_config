@@ -251,3 +251,6 @@
 (require `czq-haskell)
 (require `czq-zoom)
 
+;;  for quick command line support
+
+(require `czq-desktop)
