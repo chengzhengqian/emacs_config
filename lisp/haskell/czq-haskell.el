@@ -65,6 +65,13 @@
       )
   (run-in-haskell (format ":info %s "haskell-command)))
 
+(defun get-type-selected-in-haskell (beginning end)
+  (interactive "r")
+  (if (use-region-p)   (setq haskell-command (buffer-substring beginning end)) 
+    (setq haskell-command (thing-at-point `symbol))
+      )
+  (run-in-haskell (format ":type %s "haskell-command)))
+
 
 (defun run-in-haskell (command)
   (interactive "scommand:")
@@ -79,11 +86,21 @@
   (interactive)
   (define-key haskell-mode-map (kbd "C-x C-r") `load-haskell-file)
   (define-key haskell-mode-map (kbd "C-c i") `just-load-haskell-file)
+  (define-key haskell-mode-map (kbd "C-c C-t") `get-info-selected-in-haskell)
+  ;; we need to overrite the default map
+  (define-key interactive-haskell-mode-map (kbd "C-c C-i") `get-info-selected-in-haskell)
+  (define-key interactive-haskell-mode-map (kbd "C-c C-t") `get-type-selected-in-haskell)
   (define-key haskell-mode-map (kbd "C-x C-l") `just-load-haskell-file)
   (define-key haskell-mode-map (kbd "C-c C-l") `just-load-haskell-file)
   (define-key haskell-mode-map (kbd "C-x C-e") `exec-selected-in-haskell)
   (define-key haskell-mode-map (kbd "C-c p") `czq-haskell-send-input-line-with-tab)
-  )
+  (define-key haskell-mode-map (kbd "C-c c") `czq-haskell-change-to-current-directory))
+
+
+(defun czq-haskell-change-to-current-directory ()
+    (interactive)
+    (setq czq-haskell-current-directory (file-name-directory (buffer-file-name)))
+    (run-in-haskell (format ":cd %s" czq-haskell-current-directory)))
 ;; (remove-hook `haskell-mode-hook `define-haskell-interactive-key)
 ;; (add-hook `haskell-mode-hook `define-haskell-interactive-key)
 (setq czq-haskel-foreign-call-format "foreign import ccall \"%s\" %s::IO()")
