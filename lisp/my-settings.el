@@ -254,3 +254,15 @@
 ;;  for quick command line support
 
 (require `czq-desktop)
+
+(defun czq-activate-pyim-as-cangjie ()
+  (interactive)
+  (require `pyim)
+  (require `pyim-basedict)
+  (require 'pyim-cangjie5dict)
+  (pyim-basedict-enable)
+  (pyim-cangjie5-enable)
+  (setq pyim-default-scheme 'cangjie)
+  (setq pyim-enable-shortcode nil)
+  )
+
