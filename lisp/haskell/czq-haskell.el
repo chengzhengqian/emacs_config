@@ -44,6 +44,7 @@
 
 (defun just-load-haskell-file ()
   (interactive)
+  (save-buffer)
   (setq current-haskell-file-name (buffer-name))
   (run-in-haskell (format ":load %s" current-haskell-file-name))
   )
@@ -65,12 +66,26 @@
       )
   (run-in-haskell (format ":info %s "haskell-command)))
 
+(defun get-kind-selected-in-haskell (beginning end)
+  (interactive "r")
+  (if (use-region-p)   (setq haskell-command (buffer-substring beginning end)) 
+    (setq haskell-command (thing-at-point `symbol))
+      )
+  (run-in-haskell (format ":kind %s "haskell-command)))
+
 (defun get-type-selected-in-haskell (beginning end)
   (interactive "r")
   (if (use-region-p)   (setq haskell-command (buffer-substring beginning end)) 
     (setq haskell-command (thing-at-point `symbol))
       )
   (run-in-haskell (format ":type %s "haskell-command)))
+
+(defun get-module-selected-in-haskell (beginning end)
+  (interactive "r")
+  (if (use-region-p)   (setq haskell-command (buffer-substring beginning end)) 
+    (setq haskell-command (thing-at-point `symbol))
+      )
+  (run-in-haskell (format ":browse %s "haskell-command)))
 
 
 (defun run-in-haskell (command)
@@ -89,7 +104,9 @@
   (define-key haskell-mode-map (kbd "C-c C-t") `get-info-selected-in-haskell)
   ;; we need to overrite the default map
   (define-key interactive-haskell-mode-map (kbd "C-c C-i") `get-info-selected-in-haskell)
+  (define-key interactive-haskell-mode-map (kbd "C-c C-k") `get-kind-selected-in-haskell)
   (define-key interactive-haskell-mode-map (kbd "C-c C-t") `get-type-selected-in-haskell)
+  (define-key interactive-haskell-mode-map (kbd "C-c C-m") `get-module-selected-in-haskell)
   (define-key haskell-mode-map (kbd "C-x C-l") `just-load-haskell-file)
   (define-key haskell-mode-map (kbd "C-c C-l") `just-load-haskell-file)
   (define-key haskell-mode-map (kbd "C-x C-e") `exec-selected-in-haskell)
