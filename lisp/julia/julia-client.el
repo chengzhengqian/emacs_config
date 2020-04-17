@@ -3,7 +3,7 @@
 (require `popup)
 
 (setq czq-julia-server-port "2000")
-(setq czq-julia-server-ip "192.168.1.103")
+(setq czq-julia-server-ip "127.0.0.1")
 
 
 (defun start-julia-server-connection (port)
