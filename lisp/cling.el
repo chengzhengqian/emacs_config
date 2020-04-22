@@ -78,6 +78,13 @@
   (run-in-cling cling-command)
   )
 
+(defun set-cling-term-name (name)
+  (interactive "st(name):")
+  (make-local-variable `cling-term-name)
+  (setq cling-term-name (format "t%s" name))
+  (message cling-term-name)
+  )
+
 (defun run-in-cling (command)
   (interactive "scommand:")
   (save-window-excursion
