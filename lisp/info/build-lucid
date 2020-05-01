@@ -1,2 +1,14 @@
+# this is crucial to make the font scaling working
+# also, we may need to install libxaw7-dev			
 sudo apt install libxaw3dxft8-dev
 ./configure --prefix=/home/chengzhengqian/Application_local/emacs/emacs-26.3-lucid --with-x-toolkit=lucid
+
+#  install notes for raspberry pi
+libjpeg-dev
+configure: error: The following required libraries were not found:
+     libjpeg libgif/libungif libtiff gnutls
+Maybe some development libraries/packages are missing?
+If you don't want to link with them give
+     --with-jpeg=no --with-gif=no --with-tiff=no --with-gnutls=no
+as options to configure
+

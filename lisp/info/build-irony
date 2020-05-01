@@ -1,3 +1,6 @@
 cmake -DLIBCLANG_LIBRARY=/usr/lib/llvm-3.5/lib/libclang.so -DLIBCLANG_INCLUDE_DIR=/usr/lib/llvm-3.5/include/ ~/.emacs.d/ /home/sharath/.emacs.d/irony/ /home/sharath/.emacs.d/elpa/irony-20150408.1501/server
 
 # change the path according the system
+# on nuc
+
+cmake -DLIBCLANG_LIBRARY=/usr/lib/llvm-6.0/lib/libclang.so -DLIBCLANG_INCLUDE_DIR=/usr/lib/llvm-6.0/include/  -DCMAKE_INSTALL_PREFIX\=/home/chengzhengqian/.emacs.d/irony/ /home/chengzhengqian/.emacs.d/elpa/irony-0.2.0/server && cmake --build . --use-stderr --config Release --target install
