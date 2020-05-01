@@ -92,8 +92,12 @@
 (global-set-key (kbd "C-c e") 'end-of-buffer)
 (global-set-key (kbd "C-c j") 'imenu)
 (global-set-key (kbd "C-x t") 'new-shell-or-term)
-(global-set-key (kbd "C-c b") 'w3m-search)
-(global-set-key (kbd "C-c B") 'w3m-search-new-session)
+;; it seems eww has a better rendering
+;; (global-set-key (kbd "C-c b") 'w3m-search)
+(global-set-key (kbd "C-c b") 'eww)
+;; (global-set-key (kbd "C-c B") 'w3m-search-new-session)
+;; (global-set-key (kbd "<C-tab>") `w3m-next-buffer)
+;; (global-set-key (kbd "<C-iso-lefttab>") `w3m-previous-buffer)
 (global-set-key (kbd "C-c v") 'handian-search)
 (global-set-key (kbd "C-h j") 'javadoc-lookup)
 
@@ -142,8 +146,11 @@
 
 
 (require `my-dict)
-(require `w3m-agent)
+;; disable w3m-agent 
+;; (require `w3m-agent)
+;; set eww
 
+(setq eww-search-prefix "https://www.google.com/search?q=")
 (defun czq-toggle-node ()
   (interactive)
   (progn
@@ -209,8 +216,6 @@
 
 
 
-(global-set-key (kbd "<C-tab>") `w3m-next-buffer)
-(global-set-key (kbd "<C-iso-lefttab>") `w3m-previous-buffer)
 
 ;; set the lisp system
 (setq inferior-lisp-program "sbcl")
