@@ -271,3 +271,4 @@
   (setq pyim-enable-shortcode nil)
   )
 
+(require `czq-eww)
