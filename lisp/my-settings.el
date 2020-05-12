@@ -55,6 +55,7 @@
 (require `html)
 ;; gdb is fine, seems
 ;; (require `realgud)
+(setq gdb-many-windows nil)
 (require `java-snippet)
 (require `insert-code-snippet)
 
