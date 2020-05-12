@@ -283,3 +283,4 @@
   (switch-to-buffer (get-buffer-create "*scratch*"))
   (lisp-interaction-mode))
 
+(require `czq-scheme)
