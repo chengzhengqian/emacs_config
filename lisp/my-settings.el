@@ -53,7 +53,8 @@
 (require `cuda-cpp)
 (require `czq-haskell)
 (require `html)
-(require `realgud)
+;; gdb is fine, seems
+;; (require `realgud)
 (require `java-snippet)
 (require `insert-code-snippet)
 
@@ -94,12 +95,14 @@
 (global-set-key (kbd "C-x t") 'new-shell-or-term)
 ;; it seems eww has a better rendering
 ;; (global-set-key (kbd "C-c b") 'w3m-search)
+;; update eww keys
 (global-set-key (kbd "C-c b") 'eww)
+(global-set-key (kbd "C-c B") 'czq-eww-new)
 ;; (global-set-key (kbd "C-c B") 'w3m-search-new-session)
 ;; (global-set-key (kbd "<C-tab>") `w3m-next-buffer)
 ;; (global-set-key (kbd "<C-iso-lefttab>") `w3m-previous-buffer)
-(global-set-key (kbd "C-c v") 'handian-search)
-(global-set-key (kbd "C-h j") 'javadoc-lookup)
+;; (global-set-key (kbd "C-c v") 'handian-search)
+;; (global-set-key (kbd "C-h j") 'javadoc-lookup)
 
 (defun handian-search (start end)
   (interactive "rWords:")
@@ -272,3 +275,10 @@
   )
 
 (require `czq-eww)
+;; recreate scrat
+(defun create-scratch-buffer ()
+  "create a scratch buffer"
+  (interactive)
+  (switch-to-buffer (get-buffer-create "*scratch*"))
+  (lisp-interaction-mode))
+
