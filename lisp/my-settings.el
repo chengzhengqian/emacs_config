@@ -293,8 +293,9 @@
 (defun czq-org-large-latex-preview ()
   (interactive)
   (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.5))
-(setq org-format-latex-options (plist-put org-format-latex-options :foreground "Black"))
-(setq org-format-latex-options (plist-put org-format-latex-options :background "White"))
+  (setq org-format-latex-options (plist-put org-format-latex-options :foreground "Black"))
+  (setq org-format-latex-options (plist-put org-format-latex-options :background "White"))
   )
+
 (add-to-list 'auto-mode-alist '("\.m$" . wolfram-mode))
 
