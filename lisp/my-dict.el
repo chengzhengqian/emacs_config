@@ -38,12 +38,12 @@
   
 
 
-
-(require `w3m)
+;; we don't need w3m anymore
+;; (require `w3m)
 (defun get-workds-from-wiktioanry ()
   (interactive)
   (setq CZQ-latin-word (get-ascii-form (thing-at-point `word)))
   (w3m-goto-new-session-url (format "https://en.m.wiktionary.org/wiki/%s" CZQ-latin-word))
   )
 
-(define-key w3m-mode-map (kbd "C-c w") `get-workds-from-wiktioanry)
+;; (define-key w3m-mode-map (kbd "C-c w") `get-workds-from-wiktioanry)
