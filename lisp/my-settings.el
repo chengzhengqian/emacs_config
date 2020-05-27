@@ -97,7 +97,13 @@
 ;; it seems eww has a better rendering
 ;; (global-set-key (kbd "C-c b") 'w3m-search)
 ;; update eww keys
-(global-set-key (kbd "C-c b") 'eww)
+(global-set-key (kbd "C-c b") 'eww-search-region)
+(defun eww-search-region (beginning end)
+  (interactive "r")
+  (if (use-region-p)
+      (eww (buffer-substring beginning end))
+    (call-interactively `eww)))
+
 (global-set-key (kbd "C-c B") 'czq-eww-new)
 ;; (global-set-key (kbd "C-c B") 'w3m-search-new-session)
 ;; (global-set-key (kbd "<C-tab>") `w3m-next-buffer)
