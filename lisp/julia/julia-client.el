@@ -5,6 +5,16 @@
 (setq czq-julia-server-port "2000")
 (setq czq-julia-server-ip "127.0.0.1")
 
+(setq czq-julia-term-stream-map `())
+
+(defun set-julia-term-stream-map (term-name stream)
+  (setq julia-term-stream-possible-pair  (assoc term-name czq-julia-term-stream-map))
+  (if julia-term-stream-possible-pair (setcdr julia-term-stream-possible-pair stream)
+    (setq czq-julia-term-stream-map (cons `(,term-name . ,stream) czq-julia-term-stream-map)))
+  )
+
+(defun get-julia-term-stream-map (term-name)
+  (cdr (assoc term-name czq-julia-term-stream-map)))
 
 (defun start-julia-server-connection (port)
   (interactive "sserver port:")
@@ -12,7 +22,8 @@
 
 (defun start-julia-server-connection-with-ip (ip port)
   (interactive "sserver ip:\nsserver port:")
-  (setq czq-julia-stream (open-network-stream "julia-connection" nil ip port))
+  (setq czq-julia-stream (open-network-stream (format "julia-connection %s" julia-term-name) nil ip port))
+  (set-julia-term-stream-map julia-term-name czq-julia-stream)
   (set-process-filter czq-julia-stream 'keep-output)
   (message (format "start connection to %s:%s" ip port)))
 
@@ -24,7 +35,7 @@
 ;; (set-process-buffer czq-julia-stream (current-buffer))
 
 
-
+;; since emacs are single threaded, we share this callback between different stream.
 (defun keep-output (process output)
   (setq kept (cons output kept)))
 (defun empty-output ()  (setq kept nil))
@@ -45,7 +56,8 @@
   (interactive)
   (setq czq-julia-str (thing-at-point `symbol))
   (empty-output)
-  (process-send-string czq-julia-stream (format "%s\n" czq-julia-str))
+  ;; (process-send-string czq-julia-stream (format "%s\n" czq-julia-str))
+  (process-send-string (get-julia-term-stream-map julia-term-name) (format "%s\n" czq-julia-str))
   (sleep-for 0.1)
   (setq czq-julia-complete (popup-menu* (split-string (get-output))))
   (insert (substring czq-julia-complete (length czq-julia-str)))
