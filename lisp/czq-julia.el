@@ -12,6 +12,10 @@
   (setq julia-term-name (format "t%s" name))
   (message julia-term-name)
   )
+(defun show-julia-term-name ()
+  (interactive)
+  (message (format "current term %s" julia-term-name)))
+
 ;; (defun exec-selected-in-julia (beginning end)
 ;;   (interactive "r")
 ;;   (if (use-region-p)   (setq julia-command (buffer-substring beginning end)) 
