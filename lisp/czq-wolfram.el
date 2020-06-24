@@ -4,17 +4,17 @@
   (setq czq-wolfram-tag (file-name-base (buffer-name)))
   (setq pretty-file (concat "/home/chengzhengqian/" ".pprint_" czq-wolfram-tag   ".org"))
   (setq pretty-buffer (find-file-noselect pretty-file t))
-  (display-buffer pretty-buffer)
+  ;; it is better not display it
+  ;; (display-buffer pretty-buffer)
   
   (with-current-buffer pretty-buffer
     ;; (revert-buffer nil t nil)
     (revert-buffer-no-confirm)
     (rename-buffer (concat "*MathematicaPrettyPrint_"  czq-wolfram-tag "*"))
-    (goto-char (point-min))
     (org-remove-latex-fragment-image-overlays)
     (org-toggle-latex-fragment)
-    (goto-char (point-max))))
-
+))
+ 
 (setq wolfram-term-name "twolfram")
 
 (defun set-wolfram-term-name (name)

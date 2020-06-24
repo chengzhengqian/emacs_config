@@ -24,6 +24,7 @@
     (czq-eww-write-image-url)
     (message "image: %s" czq-image-url)
   )
+
 (defun define-czq-eww-keys ()
   (interactive)
   (define-key eww-mode-map (kbd "A") `czq-shr-show-alt-text)
@@ -36,7 +37,8 @@
   (interactive)
   (let ((czq-image (get-text-property (point) 'display)))
     (eq (car-safe czq-image) 'image)))
-(setq czq-image-scale-rate 5)
+
+(setq czq-image-scale-rate 2)
 
 (defun czq-increase-image-size-all-in-buffer ()
   (interactive)
@@ -48,6 +50,7 @@
 		    (image-increase-size czq-image-scale-rate))
 		(forward-line 1)
 		)))))
+
 (defun czq-decrease-image-size-all-in-buffer ()
   (interactive)
   (save-excursion
