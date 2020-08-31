@@ -31,6 +31,14 @@
       (exec-selected-in-julia-with-wrap beginning end  "%s")
            (exec-selected-in-julia-with-wrap (line-beginning-position) (line-end-position)  "%s")))
 
+(defun get-methods-selected-in-julia (beginning end)
+  (interactive "r")
+  (if (use-region-p)
+  ;; (setq julia-current-module-name (file-name-base (buffer-name)))
+      (exec-selected-in-julia-with-wrap beginning end  "methods(%s)")
+    (run-in-julia (format "methods(%s)"(thing-at-point 'symbol) ))
+          ))
+
 (defun find-doc--selected-in-julia (beginning end)
   (interactive "r")
   ;; (setq julia-current-module-name (file-name-base (buffer-name)))
@@ -82,6 +90,7 @@
   (define-key julia-mode-map (kbd "C-c C-i") `julia-insert-snippet)
   ;; (define-key julia-mode-map (kbd "C-x j") `julia-insert-snippet)
   (define-key julia-mode-map (kbd "C-c c") `cd-to-directory-of-current-file-in-julia)
+  (define-key julia-mode-map (kbd "C-c C-m") `get-methods-selected-in-julia)
   (define-key julia-mode-map (kbd "C-c d") `find-doc--selected-in-julia)
   (define-key julia-mode-map (kbd "C-c p") `czq-julia-autocomplete)
   (define-key julia-mode-map (kbd "C-c u") `czq-julia-update-imported-module)

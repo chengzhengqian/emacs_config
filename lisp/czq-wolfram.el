@@ -2,16 +2,17 @@
 (defun czq-wolfram-show-pprint ()
   (interactive)
   (setq czq-wolfram-tag (file-name-base (buffer-name)))
-  (setq pretty-file (concat "/home/chengzhengqian/" ".pprint_" czq-wolfram-tag   ".org"))
+  (setq pretty-file (concat "/home/chengzhengqian/cloud/" ".pprint_" czq-wolfram-tag   ".org"))
   (setq pretty-buffer (find-file-noselect pretty-file t))
   ;; it is better not display it
   ;; (display-buffer pretty-buffer)
   
   (with-current-buffer pretty-buffer
     ;; (revert-buffer nil t nil)
-    (revert-buffer-no-confirm)
+    (revert-buffer-no-confirm)    
     (rename-buffer (concat "*MathematicaPrettyPrint_"  czq-wolfram-tag "*"))
     (org-remove-latex-fragment-image-overlays)
+    (beginning-of-buffer)
     (org-toggle-latex-fragment)
 ))
  
@@ -27,6 +28,13 @@
 (defun show-wolfram-term-name ()
   (interactive)
   (message (format "current term %s" wolfram-term-name)))
+
+(defun import-wolfram-file ()
+  (interactive)
+  (save-buffer)
+  (setq current-wolfram-file (buffer-file-name))
+  (run-in-wolfram (format "Get[\"%s\"]" current-wolfram-file))
+  )
 
 (defun exec-selected-in-wolfram (beginning end)
   (interactive "r")
@@ -52,10 +60,12 @@
   (define-key wolfram-mode-map (kbd "C-c C-p") `print-selected-in-latex-in-wolfram-write)
   (define-key wolfram-mode-map (kbd "C-c p") `print-selected-in-latex-in-wolfram-append)
   (define-key wolfram-mode-map (kbd "C-c C-l") `czq-wolfram-load-predefined)
+  (define-key wolfram-mode-map (kbd "C-c i") `import-wolfram-file)
   (define-key wolfram-mode-map (kbd "C-c s") `czq-wolfram-show-pprint)
 )
 
-(setq czq-wolfram-predefined "Get[\"EPrint.m\"];")
+
+(setq czq-wolfram-predefined "Get[\"/home/chengzhengqian/Application/EPrint.m\"];")
 (defun czq-wolfram-load-predefined ()
   (interactive)
   (run-in-wolfram czq-wolfram-predefined))
@@ -81,3 +91,13 @@
   (interactive)
   (setq czq-wolfram-print-is-append "True")
   (call-interactively `print-selected-in-latex-in-wolfram))
+
+(defun extract-formula-from-latex-preview-in-org ()
+  (interactive)
+  (save-excursion 
+    (org-toggle-latex-fragment)
+    (re-search-forward "\\\\begin{equation\\*}.*\\(\\(\n.*\\)*\\)\\\\end{equation\\*}")
+    (kill-new (match-string 1)) )
+  (org-toggle-latex-fragment)
+  (message "copy the formulas to clipboard")
+)
