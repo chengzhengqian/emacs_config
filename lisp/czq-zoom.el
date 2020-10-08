@@ -3,12 +3,28 @@
 (defun czq-zoom-in ()
   "Increase font size by 10 points"
   (interactive)
-  (set-face-attribute 'default nil
+  (set-face-attribute 'default (selected-frame)
                       :height
                       (+ (face-attribute 'default :height)
                          10)))
 
 (defun czq-zoom-out ()
+  "Decrease font size by 10 points"
+  (interactive)
+  (set-face-attribute 'default (selected-frame)
+                      :height
+                      (- (face-attribute 'default :height)
+                         10)))
+
+(defun czq-zoom-in-global ()
+  "Increase font size by 10 points"
+  (interactive)
+  (set-face-attribute 'default nil
+                      :height
+                      (+ (face-attribute 'default :height)
+                         10)))
+
+(defun czq-zoom-out-global ()
   "Decrease font size by 10 points"
   (interactive)
   (set-face-attribute 'default nil
