@@ -35,3 +35,8 @@
 ;; change font size, interactively
 (global-set-key (kbd "C->") 'czq-zoom-in)
 (global-set-key (kbd "C-<") 'czq-zoom-out)
+
+(defun czq-set-mono-font ()
+  (interactive)
+  (set-frame-font "DejaVu Sans Mono-18")
+)
