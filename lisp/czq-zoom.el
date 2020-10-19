@@ -39,4 +39,12 @@
 (defun czq-set-mono-font ()
   (interactive)
   (set-frame-font "DejaVu Sans Mono-18")
-)
+  )
+
+(defun czq-set-buffer-local-mono ()
+  "Sets font in current buffer"
+  (interactive)
+  (defface tmp-buffer-local-face 
+    '((t :family "DejaVu Sans Mono"))
+    "monospace")
+  (buffer-face-set 'tmp-buffer-local-face))
