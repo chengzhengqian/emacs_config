@@ -57,15 +57,43 @@
 (defun  define-wolfram-keys ()
   (interactive)
   (define-key wolfram-mode-map (kbd "C-x C-e") `exec-selected-in-wolfram)
-  (define-key wolfram-mode-map (kbd "C-c C-p") `print-selected-in-latex-in-wolfram-write)
+  (define-key wolfram-mode-map (kbd "C-c C-p") `czq-wolfram-autocomplete)
   (define-key wolfram-mode-map (kbd "C-c p") `print-selected-in-latex-in-wolfram-append)
   (define-key wolfram-mode-map (kbd "C-c C-l") `czq-wolfram-load-predefined)
   (define-key wolfram-mode-map (kbd "C-c i") `import-wolfram-file)
+  (define-key wolfram-mode-map (kbd "C-c C-o") `czq-wolfram-client-options)
+  (define-key wolfram-mode-map (kbd "C-c C-i") `import-wolfram-file)
   (define-key wolfram-mode-map (kbd "C-c s") `czq-wolfram-show-pprint)
 )
+(setq czq-wolfram-client-start "czqEmacsEvalConnection=SocketConnect[\"localhost:9001\"] ")
+(setq czq-wolfram-client-close "Close[czqEmacsEvalConnection]")
 
 
-(setq czq-wolfram-predefined "Get[\"/home/chengzhengqian/Application/EPrint.m\"];")
+
+
+(defun czq-wolfram-client-options (op)
+  (interactive "ss(tart),r(estart),c(lose)")
+  (cond
+   ((string= op "s")
+    (progn (message "start connection")
+		(run-in-wolfram czq-wolfram-client-start)
+		))
+   ((string= op "r")
+    (progn (message "start connection")
+	   (run-in-wolfram czq-wolfram-client-close)
+	   (run-in-wolfram czq-wolfram-client-start)
+	))
+   ((string= op "c")
+    (progn (message "start connection")
+	   (run-in-wolfram czq-wolfram-client-close)
+	   ))))
+
+
+(defun czq-wolfram-autocomplete ()
+  (interactive)
+  (run-in-wolfram "autocompleteInEmacs[]"))
+
+(setq czq-wolfram-predefined "Get[\"/home/chengzhengqian/Application/EPrint.m\"];Get[\"/home/chengzhengqian/.emacs.d/lisp/server/czq-server-wolfram-client.m\"];")
 (defun czq-wolfram-load-predefined ()
   (interactive)
   (run-in-wolfram czq-wolfram-predefined))
