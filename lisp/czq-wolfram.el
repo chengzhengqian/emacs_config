@@ -65,12 +65,9 @@
   (define-key wolfram-mode-map (kbd "C-c C-i") `import-wolfram-file)
   (define-key wolfram-mode-map (kbd "C-c s") `czq-wolfram-show-pprint)
 )
+
 (setq czq-wolfram-client-start "czqEmacsEvalConnection=SocketConnect[\"localhost:9001\"] ")
 (setq czq-wolfram-client-close "Close[czqEmacsEvalConnection]")
-
-
-
-
 (defun czq-wolfram-client-options (op)
   (interactive "ss(tart),r(estart),c(lose)")
   (cond

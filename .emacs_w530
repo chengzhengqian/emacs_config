@@ -7,7 +7,7 @@
 (add-to-list 'package-archives
              '("elpy" . "http://jorgenschaefer.github.io/packages/"))
 (add-to-list 'package-archives
-              '("melpa" . "http://melpa.milkbox.net/packages/") t)
+              '("melpa" . "http://melpa.org/packages/") t)
 
 (package-initialize) ;; You might already have this line
 ;; todo, clean the .emacs_xx to my-setting.el
@@ -18,19 +18,17 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
- '(custom-enabled-themes (quote (tango)))
+ '(custom-enabled-themes '(tango))
  '(display-time-mode t)
  '(geiser-chicken-binary "/home/chengzhengqian/cloud/chicken4.8/bin/csi")
  '(geiser-guile-binary "/home/chengzhengqian/cloud/guile2.2/bin/guile")
  '(imenu-auto-rescan t)
  '(package-selected-packages
-   (quote
-    (geiser julia-mode ensime javadoc-lookup scala-mode js-comint origami fsharp-mode yapfify w3m tuareg slime realgud multi-web-mode magit js3-mode jedi intero haskell-emacs ggtags flycheck-irony etags-select elpy ein edit-server ecb cython-mode company-web company-irony company-ghc auto-complete-sage ac-js2 ac-haskell-process 2048-game)))
+   '(pyim-cangjie5dict pyim geiser julia-mode ensime javadoc-lookup scala-mode js-comint origami fsharp-mode yapfify w3m tuareg slime realgud multi-web-mode magit js3-mode jedi intero haskell-emacs ggtags flycheck-irony etags-select elpy ein edit-server ecb cython-mode company-web company-irony company-ghc auto-complete-sage ac-js2 ac-haskell-process 2048-game))
  '(realgud-safe-mode nil)
  '(safe-local-variable-values
-   (quote
-    ((haskell-process-use-ghci . t)
-     (haskell-indent-spaces . 4))))
+   '((haskell-process-use-ghci . t)
+     (haskell-indent-spaces . 4)))
  '(scheme-program-name "csi -:c")
  '(show-paren-mode t)
  '(tool-bar-mode nil))

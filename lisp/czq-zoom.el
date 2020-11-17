@@ -16,6 +16,15 @@
                       (- (face-attribute 'default :height)
                          10)))
 
+;;  add init function to carta
+(defun czq-zoom-for-carta ()
+  "set zoom for carta"
+  (interactive)
+  (set-face-attribute 'default (selected-frame)
+                      :height 125))
+
+
+
 (defun czq-zoom-in-global ()
   "Increase font size by 10 points"
   (interactive)

@@ -304,3 +304,6 @@
 
 (require `czq-org)
 (require `czq-proxy)
+
+(add-to-list `load-path "~/.emacs.d/lisp/server")
+(require `czq-server)

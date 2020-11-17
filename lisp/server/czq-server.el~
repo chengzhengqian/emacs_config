@@ -62,14 +62,4 @@
   (set-text-properties start end nil result)
   result))
 
-(defun czq-autocomplete (str result)
-  (if (string= "" result)
-      (setq czq-results `(,str))
-        (setq czq-results (split-string  result ",")))
-  (setq czq-complete
-	(with-local-quit (popup-menu* czq-results)))
-  (if czq-complete (insert (substring czq-complete (length str))))
-  czq-complete
-  )
-
 
