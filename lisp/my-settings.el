@@ -132,14 +132,27 @@
   (rename-buffer name)
   ;; (czq-set-buffer-local-mono)
   (message (format "start shell %s." name))
-)
+  )
+;; update this function to change the new term behavior
+(defun new-term-predefined (name)
+  (cond
+   ((string-match-p ".*julia.*" name) "julia --color=no")
+   ((string-match-p ".*wolfram.*" name) "wolframscript")
+   (t "echo update new-term-predefined to change this behavior!")
+   ))
+
+;; (new-term-predefined "good")
+
 (defun new-term (name)
   (interactive "sname:")
   (term "/bin/bash")
   (rename-buffer name)
-   ;; (czq-set-buffer-local-mono)
+  ;; we need to setup some predefined behavior
+  ;; (czq-set-buffer-local-mono)
+  (term-send-raw-string (format "%s\n" (new-term-predefined name)))
   (message (format "start term %s." name))
-)
+  )
+
 (defun clear-term ()
   (interactive)
   (term-line-mode)
@@ -172,16 +185,19 @@
   )
 
 ;; this is the previous binding, remove them in the future
-(global-set-key (kbd "C-c t") `czq-toggle-node)
+;; (global-set-key (kbd "C-c t") `czq-toggle-node)
 (global-set-key (kbd "C-c C-t") `origami-close-all-nodes)
 (global-set-key (kbd "C-c T") `origami-open-all-nodes)
 ;; motivated from vs code
-(global-set-key (kbd "C-}") `czq-toggle-node)
-(global-set-key (kbd "C-{") `origami-close-all-nodes)
+;; this is not useful, we just one level and it is enought
+;; (global-set-key (kbd "C-}") `czq-toggle-node) 
+;; (global-set-key (kbd "C-{") `origami-close-all-nodes)
+(global-set-key (kbd "C-}") `origami-open-node-recursively) 
+(global-set-key (kbd "C-{") `origami-close-node-recursively)
 ;; to please cygwin login
-(global-set-key (kbd "\235") `czq-toggle-node)
-(global-set-key (kbd "\233") `origami-close-all-nodes)
-;; (global-set-key (kbd "C-c T") `origami-open-all-nodes)
+;; (global-set-key (kbd "\235") `czq-toggle-node)
+;; (global-set-key (kbd "\233") `origami-close-all-nodes)
+;; ;; (global-set-key (kbd "C-c T") `origami-open-all-nodes)
 ;; update the elpy's key binding
 ;; (define-key elpy-mode-map   (kbd "C-c C-t") `origami-close-all-nodes)
 (define-key elpy-mode-map   (kbd "M-.") `elpy-goto-definition)
@@ -307,3 +323,5 @@
 
 (add-to-list `load-path "~/.emacs.d/lisp/server")
 (require `czq-server)
+;; this is needed for windows synergy server
+(setq x-alt-keysym `meta)
