@@ -325,3 +325,8 @@
 (require `czq-server)
 ;; this is needed for windows synergy server
 (setq x-alt-keysym `meta)
+
+;; yasnippet
+
+(require 'yasnippet)
+(yas-global-mode 1)
