@@ -73,7 +73,8 @@
 (setq show-paren-delay 0)
 
 (display-time-mode 1)
-(setq display-time-format "%H:%M")
+;; (setq display-time-format "%H:%M")
+(setq display-time-format "%H:%M %a, %b %d, %Y")
 (display-time-update)
 (setq column-number-mode t)
 (setq ring-bell-function 'ignore)
@@ -330,3 +331,5 @@
 
 (require 'yasnippet)
 (yas-global-mode 1)
+
+;;  set date time
