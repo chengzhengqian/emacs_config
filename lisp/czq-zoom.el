@@ -23,7 +23,31 @@
   (set-face-attribute 'default (selected-frame)
                       :height 125))
 
+(defun czq-zoom-for-desktop ()
+  "set zoom for carta"
+  (interactive)
+  (set-face-attribute 'default (selected-frame)
+                      :height 140))
 
+(defun czq-zoom-for-c55 ()
+  "set zoom for carta"
+  (interactive)
+  (set-face-attribute 'default (selected-frame)
+                      :height 240))
+
+(defun czq-zoom-for-w530 ()
+  "set zoom for carta"
+  (interactive)
+  (set-face-attribute 'default (selected-frame)
+                      :height 250))
+
+(defun czq-zoom-for-acer ()
+  (interactive)
+  ;; (set-frame-font "DejaVu Sans Mono-19")
+  (set-frame-font "Monospace Bold 20")
+  ;; (set-frame-font "Loma Bold 20")
+  ;; (set-frame-font "Ubuntu Bold 20")
+  )
 
 (defun czq-zoom-in-global ()
   "Increase font size by 10 points"
@@ -47,7 +71,7 @@
 
 (defun czq-set-mono-font ()
   (interactive)
-  (set-frame-font "DejaVu Sans Mono-18")
+  (set-frame-font "DejaVu Sans Mono-19")
   )
 
 (defun czq-set-buffer-local-mono ()
@@ -57,3 +81,4 @@
     '((t :family "DejaVu Sans Mono"))
     "monospace")
   (buffer-face-set 'tmp-buffer-local-face))
+
