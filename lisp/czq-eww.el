@@ -47,9 +47,28 @@
     (goto-char (point-min))
     (while (not (eobp)) (progn
 		(if (czq-has-image-at-point)
-		    (image-increase-size czq-image-scale-rate))
+		    (czq-image-increase-size-immediately czq-image-scale-rate))
 		(forward-line 1)
 		)))))
+
+(defun czq-image-increase-size-immediately (&optional n position)
+  "this is adopted from image-increase-size"
+  (image--change-size
+   (if n
+       (1+ (/ (prefix-numeric-value n) 10.0))
+     1.2)
+   position)
+  )
+
+(defun czq-image-decrease-size-immediately (&optional n position)
+  "this is adopted from image-decrease-size"
+  (image--change-size
+   (if n
+       (- 1  (/ (prefix-numeric-value n) 10.0))
+     0.8)
+   position)
+  )
+
 
 (defun czq-decrease-image-size-all-in-buffer ()
   (interactive)
@@ -58,7 +77,7 @@
     (goto-char (point-min))
     (while (not (eobp)) (progn
 		(if (czq-has-image-at-point)
-		    (image-decrease-size czq-image-scale-rate))
+		    (czq-image-decrease-size-immediately czq-image-scale-rate))
 		(forward-line 1)
 		)))))
 
