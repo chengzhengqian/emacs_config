@@ -24,19 +24,19 @@
                       :height 125))
 
 (defun czq-zoom-for-desktop ()
-  "set zoom for carta"
+  "set zoom for desktop"
   (interactive)
   (set-face-attribute 'default (selected-frame)
-                      :height 140))
+                      :height 130))
 
 (defun czq-zoom-for-c55 ()
-  "set zoom for carta"
+  "set zoom for c55"
   (interactive)
   (set-face-attribute 'default (selected-frame)
                       :height 240))
 
 (defun czq-zoom-for-w530 ()
-  "set zoom for carta"
+  "set zoom for w530"
   (interactive)
   (set-face-attribute 'default (selected-frame)
                       :height 250))
