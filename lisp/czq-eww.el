@@ -31,7 +31,9 @@
   (define-key eww-mode-map (kbd "U") `czq-eww-get-image-url)
   (define-key eww-mode-map (kbd "=") `czq-increase-image-size-all-in-buffer)
   (define-key eww-mode-map (kbd "C-=") `czq-decrease-image-size-all-in-buffer)
-)
+  )
+
+
 
 (defun czq-has-image-at-point ()
   (interactive)

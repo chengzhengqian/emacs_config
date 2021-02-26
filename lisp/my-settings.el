@@ -333,3 +333,6 @@
 (yas-global-mode 1)
 
 ;;  set date time
+;; this fixed the eglot 
+;; (defun project-root (project)
+;;     (car (project-roots project)))

@@ -18,16 +18,25 @@ evalInEmacs(str)=evalInEmacs(str,czqEmacsSocket)
 
 # pattern=evalInEmacs("(strip-font-info (thing-at-point `symbol))")
 
+function appendResult(result,i)
+    if(result!="")
+        result*=",$(string(i))"
+    else
+        result="$(string(i))"
+    end            
+    result
+end
+
 function autocomplete(target)
-    result=target
+    result=""
     for i in names(Main,imported=true)
         if (startswith(string(i),target))
-            result*=",$(string(i))"
+            result=appendResult(result,i)
         end
         if((i != :Main) && (eval(i) isa Module))
             for j in names(eval(i))
                 if (startswith(string(j),target))
-                    result*=",$(string(j))"
+                    result=appendResult(result,j)
                 end
             end            
         end        

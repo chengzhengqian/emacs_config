@@ -9,7 +9,7 @@
 (defun czq-org-normal-latex-preview ()
   ;; this is for carta display
   (interactive)
-  (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 2.0))
   (setq org-format-latex-options (plist-put org-format-latex-options :foreground "Black"))
   (setq org-format-latex-options (plist-put org-format-latex-options :background "White")))
 

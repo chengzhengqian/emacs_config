@@ -33,13 +33,13 @@
   "set zoom for c55"
   (interactive)
   (set-face-attribute 'default (selected-frame)
-                      :height 240))
+                      :height 125))
 
 (defun czq-zoom-for-w530 ()
   "set zoom for w530"
   (interactive)
   (set-face-attribute 'default (selected-frame)
-                      :height 250))
+                      :height 125))
 
 (defun czq-zoom-for-acer ()
   (interactive)
