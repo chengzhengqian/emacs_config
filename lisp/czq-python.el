@@ -76,12 +76,19 @@
   (define-key python-mode-map (kbd "C-x C-e") `exec-selected-in-python)
   (define-key python-mode-map (kbd "C-x C-r") `exec-function-in-python)
   (define-key python-mode-map (kbd "C-c t") `set-python-term-name)
+  (define-key python-mode-map (kbd "C-c C-p") `czq-python-autocomplete-new)
+  (define-key elpy-mode-map (kbd "C-c C-p") `czq-python-autocomplete-new)
+  (define-key elpy-mode-map (kbd "C-c C-o") `czq-run-python-client-import)
   (define-key python-mode-map (kbd "C-c i") `import-python-file)
   (define-key python-mode-map (kbd "C-c s") `czq-python-switch)
   (define-key python-mode-map (kbd "C-c c") `czq-python-change-directory)
 )
 
+(setq czq-python-client-load "import sys; sys.path.append(\"/home/chengzhengqian/.emacs.d/lisp/server/\"); from czq_server_python_client import autocompleteInEmacs")
 
+(defun czq-run-python-client-import ()
+  (interactive)
+  (run-in-python czq-python-client-load))
 ;;we extent it some common case
 (defun czq-switch-to (old new)
   (interactive "sold:\nsnew")
@@ -104,3 +111,9 @@
    ((string= target "p") (czq-python-to-plot))
    ((string= target "g") (czq-python-to-gene))
    ))
+
+
+(defun czq-python-autocomplete-new ()
+  (interactive)
+  (run-in-python "autocompleteInEmacs()")
+  )

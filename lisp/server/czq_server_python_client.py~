@@ -1,0 +1,39 @@
+# python client code to use the emacs eval server
+# implement autocomplement
+import socket
+
+czq_python_ip="127.0.0.1"
+czq_python_port=9001
+czq_python_s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+czq_python_conn=czq_python_s.connect((czq_python_ip,czq_python_port))
+# czq_python_s2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# conn=s2.connect((ip,port))
+# s.send("(buffer-name)".encode())
+# data=s.recv(1000)
+# len(data.decode().split("\n")[1])
+# s.close()
+
+# test string
+# str="(buffer-name)"
+def evalInEmacs(str,s):
+    s.send(str.encode())
+    sf=s.makefile()
+    size=sf.readline()
+    size=int(size)+1
+    result=sf.readline()
+    while(len(result)<size):
+        result+=sf.readline()
+    return result[0:-1]
+
+    
+
+
+# evalInEmacs("(buffer-name)",czq_python_s)
+def getInputForAutocomplete():
+    return evalInEmacs("( czq-find-match-part-for-auto-complete)",czq_python_s)[1:-1].split("\n")
+
+
+getInputForAutocomplete()  # good
+
+
+# a+sf.a.d+a091.
