@@ -44,9 +44,9 @@
 (defun czq-zoom-for-acer ()
   (interactive)
   ;; (set-frame-font "DejaVu Sans Mono-19")
-  (set-frame-font "Monospace Bold 20")
-  ;; (set-frame-font "Loma Bold 20")
-  ;; (set-frame-font "Ubuntu Bold 20")
+  (set-frame-font "Monospace Bold 10")
+  ;; (set-frame-font "Loma Bold 10")
+  ;; (set-frame-font "Ubuntu Bold 10")
   )
 
 (defun czq-zoom-in-global ()
