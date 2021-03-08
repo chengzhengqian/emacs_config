@@ -2,10 +2,12 @@
 ;;
 ;;; Code:
 
+(add-to-list 'load-path (directory-file-name
+                         (or (file-name-directory #$) (car load-path))))
+
 
-;;;### (autoloads (js2-imenu-extras-mode js2-imenu-extras-setup)
-;;;;;;  "js2-imenu-extras" "js2-imenu-extras.el" (22682 19179 708548
-;;;;;;  271000))
+;;;### (autoloads nil "js2-imenu-extras" "js2-imenu-extras.el" (0
+;;;;;;  0 0 0))
 ;;; Generated autoloads from js2-imenu-extras.el
 
 (autoload 'js2-imenu-extras-setup "js2-imenu-extras" "\
@@ -18,10 +20,11 @@ Toggle Imenu support for frameworks and structural patterns.
 
 \(fn &optional ARG)" t nil)
 
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "js2-imenu-extras" '("js2-imenu-")))
+
 ;;;***
 
-;;;### (autoloads (js2-jsx-mode js2-mode js2-minor-mode js2-highlight-unused-variables-mode)
-;;;;;;  "js2-mode" "js2-mode.el" (22682 19179 852548 266000))
+;;;### (autoloads nil "js2-mode" "js2-mode.el" (0 0 0 0))
 ;;; Generated autoloads from js2-mode.el
 
 (autoload 'js2-highlight-unused-variables-mode "js2-mode" "\
@@ -43,7 +46,10 @@ Major mode for editing JavaScript code.
 \(fn)" t nil)
 
 (autoload 'js2-jsx-mode "js2-mode" "\
-Major mode for editing JSX code.
+Major mode for editing JSX code in Emacs 26 and earlier.
+
+To edit JSX code in Emacs 27, use `js-mode' as your major mode
+with `js2-minor-mode' enabled.
 
 To customize the indentation for this mode, set the SGML offset
 variables (`sgml-basic-offset' et al) locally, like so:
@@ -54,14 +60,22 @@ variables (`sgml-basic-offset' et al) locally, like so:
 
 \(fn)" t nil)
 
-;;;***
-
-;;;### (autoloads nil nil ("js2-mode-pkg.el" "js2-old-indent.el")
-;;;;;;  (22682 19179 922616 460000))
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "js2-mode" '("js2-")))
 
 ;;;***
 
-(provide 'js2-mode-autoloads)
+;;;### (autoloads nil "js2-old-indent" "js2-old-indent.el" (0 0 0
+;;;;;;  0))
+;;; Generated autoloads from js2-old-indent.el
+
+(if (fboundp 'register-definition-prefixes) (register-definition-prefixes "js2-old-indent" '("js2-")))
+
+;;;***
+
+;;;### (autoloads nil nil ("js2-mode-pkg.el") (0 0 0 0))
+
+;;;***
+
 ;; Local Variables:
 ;; version-control: never
 ;; no-byte-compile: t
