@@ -82,3 +82,9 @@
     "monospace")
   (buffer-face-set 'tmp-buffer-local-face))
 
+;; set the frame font
+;; (set-frame-font "Mono-14")
+;; (set-frame-font "Sans-14")
+;; (set-frame-font "Ubuntu-14")
+;; (set-frame-font "DejaVu Sans Mono 13")
+;; (font-family-list)
