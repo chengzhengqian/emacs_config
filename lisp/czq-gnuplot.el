@@ -34,7 +34,11 @@
   (if (use-region-p)
   ;; (setq gnuplot-current-module-name (file-name-base (buffer-name)))
       (exec-selected-in-gnuplot-with-wrap beginning end  "%s")
-           (exec-selected-in-gnuplot-with-wrap (line-beginning-position) (line-end-position)  "%s")))
+    (exec-selected-in-gnuplot-with-wrap (line-beginning-position) (line-end-position)  "%s")))
+
+
+
+
 
 (defun find-doc--selected-in-gnuplot (beginning end)
   (interactive "r")
@@ -48,7 +52,6 @@
 
 (defun exec-selected-in-gnuplot-with-wrap (beginning end pattern)
   (setq gnuplot-command (buffer-substring beginning end))
-  (setq gnuplot-command (replace-regexp-in-string "    " "" gnuplot-command))
   (run-in-gnuplot (format pattern  gnuplot-command)))
 
 (defun run-in-gnuplot (command)
@@ -59,9 +62,12 @@
       (term-send-raw-string (format "%s\n" command))
       )))
 
+;; notice that we use in surface, so we need to map the home directory
+
 (defun cd-to-directory-of-current-file-in-gnuplot ()
   (interactive)
-  (run-in-gnuplot (format "cd \"%s\"" default-directory)))
+  (setq czq-desktop-dir (replace-regexp-in-string "/home/chengzhengqian/" "/home/chengzhengqian/desktop/" default-directory) )
+  (run-in-gnuplot (format "cd \"%s\"" czq-desktop-dir)))
 
 (setq czq-gnuplot-function-pattern "function \\(.*\\)\n")
 (defun exec-function-in-gnuplot ()

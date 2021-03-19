@@ -337,3 +337,4 @@
 ;; this fixed the eglot 
 ;; (defun project-root (project)
 ;;     (car (project-roots project)))
+

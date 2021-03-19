@@ -1,5 +1,6 @@
 ;; this is an experimental project
 ;; a general server that allows convenient autocomplete features from various script language. Julia, Python, WolframScript is planned.
+;; we have implemented the basic function to julia, mathematica, and python
 (provide `czq-server)
 (defvar czq-server-port 9001
   "port of the czq server")
@@ -176,3 +177,6 @@
 			    ("}"."{")))
 
 
+(defun czq-send-string-term (term-name command)
+  (with-buffer (get-buffer term-name)
+  (term-send-raw-string (format "%s\n" command))))

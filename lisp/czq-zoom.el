@@ -27,7 +27,8 @@
   "set zoom for desktop"
   (interactive)
   (set-face-attribute 'default (selected-frame)
-                      :height 130))
+                      :height 140))
+
 
 (defun czq-zoom-for-c55 ()
   "set zoom for c55"
@@ -88,3 +89,6 @@
 ;; (set-frame-font "Ubuntu-14")
 ;; (set-frame-font "DejaVu Sans Mono 13")
 ;; (font-family-list)
+
+;; (face-attribute `default :font)
+
