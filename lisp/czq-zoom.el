@@ -49,6 +49,16 @@
   ;; (set-frame-font "Ubuntu Bold 10")
   )
 
+(defun czq-zoom-for-fire ()
+  (interactive)
+  (set-frame-font "Monospace Bold 20")
+  )
+
+(defun czq-zoom-for-surface ()
+  (interactive)
+  (set-frame-font "Monospace Bold 15")
+  )
+
 (defun czq-zoom-in-global ()
   "Increase font size by 10 points"
   (interactive)
