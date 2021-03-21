@@ -1,22 +1,6 @@
-import Sockets.Sockets
-
-# czqEmacsSocket=Sockets.connect("localhost",9001)
-
-
-
-function evalInEmacs(str,s)
-    write(s,str)
-    result_size=parse(Int64,readline(s))
-    result=readline(s)
-    while(length(result)<result_size)
-        result*="\n"*readline(s)
-    end
-    result
-end
-
-evalInEmacs(str)=evalInEmacs(str,czqEmacsSocket)
-
+using JuliaCommon
 # pattern=evalInEmacs("(strip-font-info (thing-at-point `symbol))")
+import Sockets.Sockets
 
 function appendResult(result,i)
     if(result!="")

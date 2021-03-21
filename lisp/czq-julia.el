@@ -120,7 +120,7 @@
   )
 
 (setq czq-julia-client-preload "include(\"/home/chengzhengqian/.emacs.d/lisp/server/czq-server-julia-client.jl\")")
-(setq czq-julia-client-start "czqEmacsSocket=Sockets.connect(\"localhost\",9001)")
+(setq czq-julia-client-start "JuliaCommon.czqEmacsSocket[\"default\"]=Sockets.connect(\"localhost\",9001)")
 (setq czq-julia-client-close "close(czqEmacsEvalConnection)")
 (defun czq-julia-client-options (op)
   (interactive "ss(tart),r(estart),c(lose)")
@@ -139,3 +139,13 @@
     (progn (message "start connection")
 	   (run-in-julia czq-julia-client-close)
 	   ))))
+
+;; add hook to julia mode
+
+;; the stock expression is too cumbersom
+(setq czq-simplified-julia-imenu-expression `((nil "\\(function\\|struct\\) +\\([^ (]*\\)" 2)))
+(defun czq-julia-set-simplified-imenu-expression ()
+    (setq imenu-generic-expression czq-simplified-julia-imenu-expression))
+(add-hook 'julia-mode-hook 'czq-julia-set-simplified-imenu-expression)
+
+
