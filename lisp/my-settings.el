@@ -139,7 +139,7 @@
   (cond
    ((string-match-p ".*julia.*" name) "julia --color=no")
    ((string-match-p ".*wolfram.*" name) "wolframscript")
-   ((string-match-p ".*python.*" name) "source add_conda.sh\nipython")
+   ((string-match-p ".*python.*" name) "source ~/add_conda.sh\nipython")
    (t "echo update new-term-predefined to change this behavior!")
    ))
 
