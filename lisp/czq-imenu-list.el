@@ -61,4 +61,7 @@
       (czq-imenu-list--show-current-entry-old czq-imenu-line-number)
       )))
 (defun czq-patch-imenu-list ()
+  (display-line-numbers-mode)
   (fset `imenu-list--show-current-entry `czq-imenu-list--show-current-entry))
+
+(add-hook `imenu-list-major-mode-hook `czq-patch-imenu-list)
