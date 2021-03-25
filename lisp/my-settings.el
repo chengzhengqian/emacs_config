@@ -338,3 +338,4 @@
 ;; (defun project-root (project)
 ;;     (car (project-roots project)))
 
+(require `czq-imenu-list)

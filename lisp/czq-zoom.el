@@ -50,6 +50,11 @@
   ;; (set-frame-font "Ubuntu Bold 10")
   )
 
+(defun czq-zoom-for-nova ()
+  (interactive)
+  (set-frame-font "Monospace Bold 18")
+  )
+
 (defun czq-zoom-for-fire ()
   (interactive)
   (set-frame-font "Monospace Bold 20")

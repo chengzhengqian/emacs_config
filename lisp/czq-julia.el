@@ -42,7 +42,10 @@
 (defun find-doc--selected-in-julia (beginning end)
   (interactive "r")
   ;; (setq julia-current-module-name (file-name-base (buffer-name)))
-  (exec-selected-in-julia-with-wrap beginning end  "?%s"))
+  (if (use-region-p)
+      (exec-selected-in-julia-with-wrap beginning end  "?%s")
+    (run-in-julia (format "?%s" (thing-at-point `symbol)))
+    ))
 
 (defun exec-selected-in-julia-with-less (beginning end)
   (interactive "r")
@@ -143,9 +146,11 @@
 ;; add hook to julia mode
 
 ;; the stock expression is too cumbersom
-(setq czq-simplified-julia-imenu-expression `((nil "\\(function\\|struct\\) +\\([^ (]*\\)" 2)))
+(setq czq-simplified-julia-imenu-expression `((nil "\\(function\\|struct\\|macro\\) +\\([^ (]*\\)" 2)))
 (defun czq-julia-set-simplified-imenu-expression ()
     (setq imenu-generic-expression czq-simplified-julia-imenu-expression))
-(add-hook 'julia-mode-hook 'czq-julia-set-simplified-imenu-expression)
+
+;; (add-hook 'julia-mode-hook 'czq-julia-set-simplified-imenu-expression)
+
 
 
