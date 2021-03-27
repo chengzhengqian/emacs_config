@@ -339,3 +339,18 @@
 ;;     (car (project-roots project)))
 
 (require `czq-imenu-list)
+
+;; ivy
+(ivy-mode t)
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
+
+(global-set-key (kbd "C-s") `swiper-isearch) 
+;; (global-set-key (kbd "C-s") `isearch-forward) 
+(global-set-key (kbd "M-x") `counsel-M-x)
+;; (global-set-key (kbd "M-x") `execute-extended-command)
+;; others seems not necessary
+(global-set-key (kbd "C-c j") `counsel-imenu)
+
+
+

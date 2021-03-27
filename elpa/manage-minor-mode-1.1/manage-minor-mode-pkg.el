@@ -1,0 +1,2 @@
+;;; Generated package description from /home/chengzhengqian/.emacs.d/elpa/manage-minor-mode-1.1/manage-minor-mode.el  -*- no-byte-compile: t -*-
+(define-package "manage-minor-mode" "1.1" "Manage your minor-modes easily" '((emacs "24.3")) :commit "d07d269586233787b4bea4c40df43d6357a40f58" :authors '(("Shingo Fukuyama - http://fukuyama.co")) :maintainer '("Shingo Fukuyama - http://fukuyama.co") :keywords '("tools" "minor-mode" "manage" "emacs") :url "https://github.com/ShingoFukuyama/manage-minor-mode")

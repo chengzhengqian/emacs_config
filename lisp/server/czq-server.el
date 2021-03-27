@@ -178,5 +178,5 @@
 
 
 (defun czq-send-string-term (term-name command)
-  (with-buffer (get-buffer term-name)
+  (with-current-buffer (get-buffer term-name)
   (term-send-raw-string (format "%s\n" command))))
