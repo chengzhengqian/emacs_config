@@ -24,11 +24,12 @@
 ;;   (run-in-julia julia-command)
 ;;   )
 
-(defun exec-selected-in-julia (beginning end)
-  (interactive "r")
+;; update the method so it works when the region is not set
+(defun exec-selected-in-julia ()
+  (interactive "")
   (if (use-region-p)
   ;; (setq julia-current-module-name (file-name-base (buffer-name)))
-      (exec-selected-in-julia-with-wrap beginning end  "%s")
+      (exec-selected-in-julia-with-wrap (region-beginning) (region-end)  "%s")
            (exec-selected-in-julia-with-wrap (line-beginning-position) (line-end-position)  "%s")))
 
 (defun get-methods-selected-in-julia (beginning end)
