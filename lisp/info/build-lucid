@@ -12,3 +12,7 @@ If you don't want to link with them give
      --with-jpeg=no --with-gif=no --with-tiff=no --with-gnutls=no
 as options to configure
 
+./configure --prefix=/home/chengzhengqian/Application/emacs-28-lucid --with-x-toolkit=lucid
+./configure --prefix=/home/chengzhengqian/Application/emacs-28-gtk --with-x-toolkit=gtk3
+
+
