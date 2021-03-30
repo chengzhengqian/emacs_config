@@ -22,7 +22,7 @@
  '(imenu-auto-rescan t)
  '(package-selected-packages
    (quote
-    (julia-mode dash-functional dash lsp-mode kotlin-mode racket-mode geiser origami fsharp-mode yapfify w3m tuareg slime realgud multi-web-mode magit js3-mode intero haskell-emacs ggtags flycheck-irony etags-select elpy ein edit-server ecb cython-mode company-web company-irony company-ghc auto-complete-sage ac-js2 ac-haskell-process 2048-game)))
+    (exwm web-mode jsonrpc js2-mode julia-mode dash-functional dash lsp-mode kotlin-mode racket-mode geiser origami fsharp-mode yapfify w3m tuareg slime realgud multi-web-mode magit js3-mode intero haskell-emacs ggtags flycheck-irony etags-select elpy ein edit-server ecb cython-mode company-web company-irony company-ghc auto-complete-sage ac-js2 ac-haskell-process 2048-game)))
  '(realgud-safe-mode nil)
  '(safe-local-variable-values
    (quote
@@ -39,6 +39,7 @@
  ;; If there is more than one, they won't work right.
  '(default ((t (:inherit nil :stipple nil :background "black" :foreground "SpringGreen1" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 181 :width normal :foundry "PfEd" :family "DejaVu Sans"))))
  '(ein:cell-input-area ((t (:background "#202020"))))
+ '(font-lock-comment-face ((t (:foreground "gray57"))))
  '(header-line ((t (:background "black" :inverse-video nil :box nil))))
  '(minibuffer-prompt ((t (:background "black" :foreground "lightblue" :box nil :weight bold))))
  '(mode-line ((t (:background "black" :box nil :family "DejaVu Sans"))))
