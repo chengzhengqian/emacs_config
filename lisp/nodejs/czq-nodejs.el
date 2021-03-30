@@ -10,6 +10,7 @@
   (deactivate-mark))
 
 (setq czq-nodejs-term-name "tnodejs")
+
 (defun set-nodejs-term-name (name)
   (interactive "st(name):")
   (setq czq-nodejs-term-name (format "t%s" name))
@@ -48,14 +49,15 @@
     (progn
       (end-of-line)
      (czq-nodejs-send-input-line-with-additional-string "\n")))
-  (next-line))
+  ;; (next-line)
+  )
 
 
 
 (defun define-nodejs-keys ()
   (interactive)
- (define-key js2-mode-map (kbd "C-x p") `czq-nodejs-send-input-line-with-tab)
- (define-key js2-mode-map (kbd "C-x C-e") `czq-nodejs-send-input-line-with-enter)
+  (define-key js3-mode-map (kbd "C-x p") `czq-nodejs-send-input-line-with-tab)
+  (define-key js3-mode-map (kbd "C-x C-e") `czq-nodejs-send-input-line-with-enter)
  )
 
 (defun js-comint-send-last-sexp ()

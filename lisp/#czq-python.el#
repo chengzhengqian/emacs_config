@@ -21,7 +21,7 @@
   (interactive "")
   (if (use-region-p)
       (progn
-	(setq python-command (buffer-substring (region-beginning) (regionend)))
+	(setq python-command (buffer-substring (region-beginning) (region-end)))
 	(run-in-python-block-code python-command)) 
     (progn
       (setq python-command (thing-at-point `line))

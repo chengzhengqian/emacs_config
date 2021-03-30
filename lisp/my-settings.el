@@ -99,10 +99,12 @@
 ;; (global-set-key (kbd "C-c b") 'w3m-search)
 ;; update eww keys
 (global-set-key (kbd "C-c b") 'eww-search-region)
-(defun eww-search-region (beginning end)
-  (interactive "r")
+
+;; fix the region problem
+(defun eww-search-region ()
+  (interactive "")
   (if (use-region-p)
-      (eww (buffer-substring beginning end))
+      (eww (buffer-substring (region-beginning) (region-end)))
     (call-interactively `eww)))
 
 (global-set-key (kbd "C-c B") 'czq-eww-new)
