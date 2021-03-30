@@ -115,5 +115,5 @@
 
 (defun czq-python-autocomplete-new ()
   (interactive)
-  (run-in-python "autocompleteInEmacs()")
+  (run-in-python "autocompleteInEmacs(globals())")
   )
