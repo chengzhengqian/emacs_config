@@ -99,12 +99,10 @@
 ;; (global-set-key (kbd "C-c b") 'w3m-search)
 ;; update eww keys
 (global-set-key (kbd "C-c b") 'eww-search-region)
-
-;; fix the region problem
-(defun eww-search-region ()
-  (interactive "")
+(defun eww-search-region (beginning end)
+  (interactive "r")
   (if (use-region-p)
-      (eww (buffer-substring (region-beginning) (region-end)))
+      (eww (buffer-substring beginning end))
     (call-interactively `eww)))
 
 (global-set-key (kbd "C-c B") 'czq-eww-new)
@@ -120,17 +118,14 @@
   )
 
 (setq CZQ-term-name-pattern "t\\(.*\\)")
-(setq czq-term-common-names '("tjulia" "tpython" "twolfram" "trun"))
-;; use complete read
 (defun new-shell-or-term (name)
      "wrap for new-shell or new-term"
-     ;; (interactive "sname(t[.*] for term):")
-     (interactive (list
-		   (completing-read "name: " czq-term-common-names)))
+     (interactive "sname(t[.*] for term):")
      (if (string-match-p  CZQ-term-name-pattern name)
 	 (new-term name)
 	 (new-shell name)
-	 ))
+	 )
+     )
 ;; terminal 
 (defun new-shell (name)
   (interactive "sname:")
@@ -345,14 +340,25 @@
 
 (require `czq-imenu-list)
 
-;; settings for  ivy mode
+;; ivy
 (ivy-mode t)
 (setq ivy-use-virtual-buffers t)
 (setq ivy-count-format "(%d/%d) ")
+
 (global-set-key (kbd "C-s") `swiper-isearch) 
+;; 
 ;; (global-set-key (kbd "C-s") `isearch-forward) 
 (global-set-key (kbd "M-x") `counsel-M-x)
 ;; (global-set-key (kbd "M-x") `execute-extended-command)
 ;; others seems not necessary
 (global-set-key (kbd "C-c j") `counsel-imenu)
+
+;;  somehow, we need to put this frist, otherwise, they use company-capf
+;;  use `(x xx xxx)  for a group
+(push `company-clang company-backends)
+(global-set-key (kbd "C-M-i") `company-complete)
+
+
+
+
 
