@@ -1,5 +1,6 @@
 # python client code to use the emacs eval server
 # implement autocomplement
+# notice that the global in python are local to the module, so when we wrap this to a package, we need to acquire the new globals each time.
 import socket
 
 czq_python_ip="127.0.0.1"
@@ -34,24 +35,28 @@ def getInputForAutocomplete():
     # print(result)
     return result[1:-1].split("\n")
 
-def czqAutoComplete(pattern):
+def czqAutoComplete(pattern,bindings,is_debug=False):
+    if(is_debug):
+        print(f"the patten is {pattern}")
     result=[]
     if(len(pattern)==1):
-        keys= globals().keys()
+        keys= bindings.keys()
+        if(is_debug):
+            print(f"the globals is {keys}")
         pattern_=pattern[0]
     if(len(pattern)==2):
-        keys=dir(eval(pattern[0]))
+        keys=dir(eval(pattern[0],bindings))
         pattern_=pattern[1]
     for i in keys:
         if(i.startswith(pattern_)):
             result.append(i)
     return ",".join(result)
             
-def autocompleteInEmacs():
+def autocompleteInEmacs(bindings,is_debug=False):
     patterns=getInputForAutocomplete()
     # print(patterns)
     pattern=patterns[-1]
-    results=czqAutoComplete(patterns)
+    results=czqAutoComplete(patterns,bindings,is_debug=is_debug)
     cmd=f"(czq-autocomplete \"{pattern}\"  \"{results}\")"
     select=evalInEmacs( cmd, czq_python_s)
     # print(cmd)
