@@ -51,10 +51,10 @@
 
 
 (setq czq-haskell-ghci-multiline ":{\n%s\n:}")
-
-(defun exec-selected-in-haskell (beginning end)
-  (interactive "r")
-  (if (use-region-p)   (setq haskell-command (format czq-haskell-ghci-multiline(buffer-substring beginning end))) 
+;; remove the region selected constraint
+(defun exec-selected-in-haskell ()
+  (interactive )
+  (if (use-region-p)   (setq haskell-command (format czq-haskell-ghci-multiline(buffer-substring (region-beginning) (region-end)))) 
     (setq haskell-command (thing-at-point `line))
       )
   (run-in-haskell haskell-command))
