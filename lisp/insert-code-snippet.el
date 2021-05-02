@@ -1,6 +1,6 @@
 (provide `insert-code-snippet)
 
-
+;; this are old  functions, consider remove them at some point
 (defun insert-snippet-cpp (code)
   (interactive "sinsert i(mplement(io,implement only) and declare) cm(cython module) n(amespace) cl(ass) w(wrap) h(ead prevent) fl(or loop) d(ouble dp:*, f,fp, float) g(__global__) #(include) l(cublas h, handle v,set variable) c(comments /**/) dk register(dr) c-function(dc) jni(ji) f(lex)(c(ode), r(ules)):")
   (cond
@@ -175,3 +175,11 @@ Java_com_serendipity_chengzhengqian_jsos_JsNative_%s(JNIEnv* env, jobject /* thi
   (insert (format "for(int %s=0; %s<%s; %s++){  }" iter iter max iter))
   (backward-char 3)
   )
+
+;; new functions
+
+(defun czq-insert-number-sequence (start end pattern)
+  (interactive "nstart:\nnend:\nspattern:")
+  (dolist (x (number-sequence start end ))
+    (insert (format pattern x))
+    ))
