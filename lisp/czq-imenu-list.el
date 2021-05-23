@@ -65,3 +65,7 @@
   (fset `imenu-list--show-current-entry `czq-imenu-list--show-current-entry))
 
 (add-hook `imenu-list-major-mode-hook `czq-patch-imenu-list)
+(defun czq-update-imenu-list ()
+  (interactive)
+  (imenu-list-update))
+(global-set-key (kbd "C-c M-j") `czq-update-imenu-list)
