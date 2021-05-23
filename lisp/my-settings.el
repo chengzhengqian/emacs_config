@@ -359,6 +359,10 @@
 (global-set-key (kbd "C-M-i") `company-complete)
 
 
+(defun czq-set-terminal-vertical-border-style ()
+  (interactive)
+  (set-face-background 'vertical-border "brightblack")
+  (set-face-foreground 'vertical-border (face-background 'vertical-border)))
 
 
 
