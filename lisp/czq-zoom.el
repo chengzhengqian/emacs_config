@@ -21,31 +21,41 @@
   "set zoom for carta"
   (interactive)
   (set-face-attribute 'default (selected-frame)
-                      :height 125))
+                      :height 125)
+  (czq-add-to-framelist "carta")
+  )
 
 (defun czq-zoom-for-desktop ()
   "set zoom for desktop"
   (interactive)
   (set-face-attribute 'default (selected-frame)
-                      :height 140))
+                      :height 140)
+  (czq-add-to-framelist "desktop")
+)
 
 
 (defun czq-zoom-for-c55 ()
   "set zoom for c55"
   (interactive)
   (set-face-attribute 'default (selected-frame)
-                      :height 125))
+                      :height 125)
+  (czq-add-to-framelist "c55")
+)
 
 (defun czq-zoom-for-w530 ()
   "set zoom for w530"
   (interactive)
   (set-face-attribute 'default (selected-frame)
-                      :height 125))
+                      :height 125)
+  (czq-add-to-framelist "c55")
+)
+  
 
 (defun czq-zoom-for-acer ()
   (interactive)
   ;; (set-frame-font "DejaVu Sans Mono-19")
   (set-frame-font "Monospace Bold 10")
+  (czq-add-to-framelist "acer")
   ;; (set-frame-font "Loma Bold 10")
   ;; (set-frame-font "Ubuntu Bold 10")
   )
@@ -53,6 +63,7 @@
 (defun czq-zoom-for-nova ()
   (interactive)
   (set-frame-font "Monospace Bold 18")
+  (czq-add-to-framelist "nova")
   )
 
 (defun czq-zoom-for-fire ()
@@ -63,6 +74,7 @@
 (defun czq-zoom-for-surface ()
   (interactive)
   (set-frame-font "Monospace Bold 15")
+  (czq-add-to-framelist "surface")
   )
 
 (defun czq-zoom-in-global ()
