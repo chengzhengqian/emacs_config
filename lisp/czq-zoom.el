@@ -21,7 +21,7 @@
   "set zoom for carta"
   (interactive)
   (set-face-attribute 'default (selected-frame)
-                      :height 125)
+                      :height 110)
   (czq-add-to-framelist "carta")
   )
 
