@@ -6,12 +6,22 @@
   (setq current-julia-file (buffer-file-name))
   (run-in-julia (format "include(\"%s\")" current-julia-file))
   )
-(defun set-julia-term-name (name)
-  (interactive "st(name):")
+
+;; (push "good" czq-terminal-list)
+(defun  czq-get-terminal-list ()
+  (setq czq-terminal-list '())
+  (dolist (buffer (buffer-list) )
+    (with-current-buffer buffer
+      (if (eq  major-mode 'term-mode)
+	  (push (buffer-name) czq-terminal-list)))))
+
+(defun set-julia-term-name ()
+  (interactive "")
   (make-local-variable `julia-term-name)
-  (setq julia-term-name (format "t%s" name))
-  (message julia-term-name)
-  )
+  (czq-get-terminal-list)
+  (setq julia-term-name   (completing-read "set julia term as: " czq-terminal-list))
+  (message julia-term-name))
+
 (defun show-julia-term-name ()
   (interactive)
   (message (format "current term %s" julia-term-name)))
