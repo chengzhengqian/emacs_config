@@ -105,7 +105,14 @@
       (eww (buffer-substring beginning end))
     (call-interactively `eww)))
 
-(global-set-key (kbd "C-c B") 'czq-eww-new)
+(defun eww-search-in-handian (beginning end)
+  (interactive "r")
+  (if (use-region-p)
+      (eww (format "https://www.zdic.net/hant/%s" (buffer-substring beginning end)))
+    (call-interactively `eww)))
+
+
+(global-set-key (kbd "C-c B") 'eww-search-in-handian)
 ;; (global-set-key (kbd "C-c B") 'w3m-search-new-session)
 ;; (global-set-key (kbd "<C-tab>") `w3m-next-buffer)
 ;; (global-set-key (kbd "<C-iso-lefttab>") `w3m-previous-buffer)
@@ -364,5 +371,5 @@
   (set-face-background 'vertical-border "brightblack")
   (set-face-foreground 'vertical-border (face-background 'vertical-border)))
 
-
-
+(require `czq-switch-frame)
+(global-set-key (kbd "C-c s") `czq-switch-with-other-frame)

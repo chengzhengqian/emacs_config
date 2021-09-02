@@ -36,11 +36,11 @@
   (run-in-wolfram (format "Get[\"%s\"]" current-wolfram-file))
   )
 
-(defun exec-selected-in-wolfram (beginning end)
-  (interactive "r")
+(defun exec-selected-in-wolfram ()
+  (interactive)
   (if (use-region-p)
       (progn
-	(setq wolfram-command (buffer-substring beginning end))
+	(setq wolfram-command (buffer-substring (region-beginning) (region-end)))
 	(run-in-wolfram wolfram-command)) 
     (progn
       (setq wolfram-command (thing-at-point `line))
