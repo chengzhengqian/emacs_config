@@ -157,11 +157,41 @@
 ;; add hook to julia mode
 
 ;; the stock expression is too cumbersom
-(setq czq-simplified-julia-imenu-expression `((nil "\\(function\\|struct\\|macro\\) +\\([^ (]*\\)" 2)))
-(defun czq-julia-set-simplified-imenu-expression ()
-    (setq imenu-generic-expression czq-simplified-julia-imenu-expression))
+;; (setq czq-simplified-julia-imenu-expression `((nil "\\(function\\|struct\\|macro\\) +\\([^ (]*\\)" 2)))
 
-;; (add-hook 'julia-mode-hook 'czq-julia-set-simplified-imenu-expression)
+;; copied from the julia-mode
+(setq czq-julia-imenu-generic-expression
+  ;; don't use syntax classes, screws egrep
+  '(("Function (_)" "[ \t]*function[ \t]+\\(_[^ \t\n]*\\)" 1)
+    ("Function" "^[ \t]*function[ \t]+\\([^_][^\t\n]*\\)" 1)
+    ("Const" "[ \t]*const \\([^ \t\n]*\\)" 1)
+    ("Struct" "[ \t]*struct \\([^ \t\n]*\\)" 1)
+    ("Type"  "^[ \t]*[a-zA-Z0-9_]*type[a-zA-Z0-9_]* \\([^ \t\n]*\\)" 1)
+    ("Require"      " *\\(\\brequire\\)(\\([^ \t\n)]*\\)" 2)
+    ("Include"      " *\\(\\binclude\\)(\\([^ \t\n)]*\\)" 2)
+    ;; ("Classes" "^.*setClass(\\(.*\\)," 1)
+    ;; ("Coercions" "^.*setAs(\\([^,]+,[^,]*\\)," 1) ; show from and to
+    ;; ("Generics" "^.*setGeneric(\\([^,]*\\)," 1)
+    ;; ("Methods" "^.*set\\(Group\\|Replace\\)?Method(\"\\(.+\\)\"," 2)
+    ;; ;;[ ]*\\(signature=\\)?(\\(.*,?\\)*\\)," 1)
+    ;; ;;
+    ;; ;;("Other" "^\\(.+\\)\\s-*<-[ \t\n]*[^\\(function\\|read\\|.*data\.frame\\)]" 1)
+    ;; ("Package" "^.*\\(library\\|require\\)(\\(.*\\)," 2)
+    ;; ("Data" "^\\(.+\\)\\s-*<-[ \t\n]*\\(read\\|.*data\.frame\\).*(" 1)))
+    ))
+
+
+;; add entry for struct
+(defun czq-julia-set-imenu-expression ()
+  (interactive)
+  (setq imenu-generic-expression czq-julia-imenu-generic-expression))
+
+(add-hook 'julia-mode-hook 'czq-julia-set-imenu-expression)
+
+(defun czq-julia-set-original-imenu-expression ()
+  (interactive)
+    (setq imenu-generic-expression julia-imenu-generic-expression))
+
 
 
 
