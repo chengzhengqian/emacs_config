@@ -47,7 +47,7 @@
   (interactive)
   (set-face-attribute 'default (selected-frame)
                       :height 125)
-  (czq-add-to-framelist "c55")
+  (czq-add-to-framelist "w530")
 )
   
 
