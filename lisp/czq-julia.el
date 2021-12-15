@@ -103,7 +103,7 @@
   (define-key julia-mode-map (kbd "C-c i") `import-julia-file)
   ;; (define-key julia-mode-map (kbd "C-c C-i") `julia-insert-snippet)
   ;; (define-key julia-mode-map (kbd "C-x j") `julia-insert-snippet)
-  (define-key julia-mode-map (kbd "C-c C-i") `eldoc-print-current-symbol-info)
+  ;; (define-key julia-mode-map (kbd "C-c C-i") `eldoc-print-current-symbol-info)
   (define-key julia-mode-map (kbd "C-c c") `cd-to-directory-of-current-file-in-julia)
   (define-key julia-mode-map (kbd "C-c C-m") `get-methods-selected-in-julia)
   (define-key julia-mode-map (kbd "C-c d") `find-doc--selected-in-julia)
