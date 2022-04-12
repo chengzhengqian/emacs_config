@@ -15,4 +15,11 @@ as options to configure
 ./configure --prefix=/home/chengzhengqian/Application/emacs-28-lucid --with-x-toolkit=lucid
 ./configure --prefix=/home/chengzhengqian/Application/emacs-28-gtk --with-x-toolkit=gtk3
 
+** The new configure option '--with-json' adds support for JSON using
+the Jansson library.  It is on by default; use 'configure
+--with-json=no' to build without Jansson support.  The new JSON
+functions 'json-serialize', 'json-insert', 'json-parse-string', and
+'json-parse-buffer' are typically much faster than their Lisp
+counterparts from json.el.
 
+note: one need to sudo apt install libjansson-dev on deb-based linux for this to work; also ./configure shows Does Emacs use -ljansson? yes if that was found)
