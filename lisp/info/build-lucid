@@ -23,3 +23,14 @@ functions 'json-serialize', 'json-insert', 'json-parse-string', and
 counterparts from json.el.
 
 note: one need to sudo apt install libjansson-dev on deb-based linux for this to work; also ./configure shows Does Emacs use -ljansson? yes if that was found)
+
+for wsl
+
+install libgkt-3-dev
+configure: error: The following required libraries were not found:
+    libXpm libjpeg libgif/libungif libtiff gnutls
+Maybe some development libraries/packages are missing?
+To build anyway, give:
+    --with-xpm=ifavailable --with-jpeg=ifavailable --with-gif=ifavailable --with-tiff=ifa
+vailable --with-gnutls=ifavailable                                                      
+as options to configure.
