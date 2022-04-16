@@ -33,6 +33,14 @@
   (czq-add-to-framelist "desktop")
 )
 
+(defun czq-zoom-for-nuc ()
+  "set zoom for nuc"
+  (interactive)
+  (set-face-attribute 'default (selected-frame)
+                      :height 110)
+  (czq-add-to-framelist "nuc")
+)
+
 
 (defun czq-zoom-for-c55 ()
   "set zoom for c55"
@@ -73,7 +81,7 @@
 
 (defun czq-zoom-for-surface ()
   (interactive)
-  (set-frame-font "Monospace Bold 15")
+  (set-frame-font "Monospace Bold 20")
   (czq-add-to-framelist "surface")
   )
 
