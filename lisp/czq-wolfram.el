@@ -18,12 +18,18 @@
  
 (setq wolfram-term-name "twolfram")
 
-(defun set-wolfram-term-name (name)
-  (interactive "st(name):")
+;; (defun set-wolfram-term-name (name)
+;;   (interactive "st(name):")
+;;   (make-local-variable `wolfram-term-name)
+;;   (setq wolfram-term-name (format "t%s" name))
+;;   (message wolfram-term-name)
+;;   )
+(defun set-wolfram-term-name ()
+  (interactive "")
   (make-local-variable `wolfram-term-name)
-  (setq wolfram-term-name (format "t%s" name))
-  (message wolfram-term-name)
-  )
+  (czq-get-terminal-list)
+  (setq wolfram-term-name   (completing-read "set wolfram term as: " czq-terminal-list))
+  (message wolfram-term-name))
 
 (defun show-wolfram-term-name ()
   (interactive)
@@ -127,3 +133,14 @@
   (org-toggle-latex-fragment)
   (message "copy the formulas to clipboard")
 )
+(setq czq-wolfram-imenu-expression `((nil "^\\([^ =]+\\)=" 1)))
+
+(defun czq-set-wolfram-imenu ()
+  (interactive)
+  (setq imenu-generic-expression czq-wolfram-imenu-expression)
+  )
+
+;; (add-to-list `wolfram-mode-hook `czq-set-wolfram-imenu)
+
+
+
