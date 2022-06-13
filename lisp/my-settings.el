@@ -374,3 +374,18 @@
 
 (require `czq-switch-frame)
 (global-set-key (kbd "C-c s") `czq-switch-with-other-frame)
+
+(defun czq-load-eaf ()
+  (interactive)
+  (add-to-list 'load-path "~/Application/emacs-application-framework/")
+  (require 'eaf)
+  (require 'eaf-browser)
+  (require 'eaf-pdf-viewer)
+  (require 'eaf-terminal)
+  (require 'eaf-demo)
+  (setq eaf-pdf-dark-mode nil)
+  (setq eaf-browser-dark-mode t)
+  (setq eaf-browser-default-zoom 1.5)
+  ;; use android user agent
+  (setq eaf-browser-pc-user-agent "Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Mobile Safari/537.36")
+  )
