@@ -2,7 +2,7 @@
 
 ;; mainly to control the fire tablet as an secondary screen
 ;; add more function in future
-(defun run-command-in-desktop (tag)
+(defun czq-fire-run-command-in-desktop (tag)
   (interactive "sf(ire_power),f(ire)s(ynergy): ")
   (cond
    ((string= tag "f") (shell-command "/home/chengzhengqian/fire_power.sh"))

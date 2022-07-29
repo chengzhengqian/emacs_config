@@ -67,6 +67,16 @@
   ;; (set-frame-font "Loma Bold 10")
   ;; (set-frame-font "Ubuntu Bold 10")
   )
+(defun czq-zoom-for-mira-pro ()
+  (interactive)
+  ;; (set-frame-font "DejaVu Sans Mono-19")
+  ;; (set-frame-font "Monospace Bold 10")
+  ;; (set-frame-font "Loma Bold 10")
+  (set-frame-font "Ubuntu 12")
+  (czq-add-to-framelist "mira")
+  )
+
+
 
 (defun czq-zoom-for-nova ()
   (interactive)
