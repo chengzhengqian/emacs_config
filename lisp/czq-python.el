@@ -6,10 +6,14 @@
   (setq current-python-file (file-name-base (buffer-name)))
   (run-in-python (format "from %s import *" current-python-file))
   )
-(defun set-python-term-name (name)
-  (interactive "st(name):")
+
+(setq python-term-name "tpython")
+(defun set-python-term-name ()
+  (interactive "")
   (make-local-variable `python-term-name)
-  (setq python-term-name (format "t%s" name))
+  ;; (setq python-term-name (format "t%s" name))
+  (czq-get-terminal-list)
+  (setq python-term-name   (completing-read "set python term as: " czq-terminal-list))
   (message python-term-name)
   )
 
@@ -47,14 +51,21 @@
   (run-in-python (format "%s.%s" python-current-module-name python-command))
   )
 
+
+(setq czq-python-term-frame-name "acer")
 (defun run-in-python (command)
   (interactive "scommand:")
 
   (save-current-buffer
     (progn
       (set-buffer python-term-name)
-      (term-send-raw-string (format "%s\n" command)))
-    ))
+      (term-send-raw-string (format "%s\n" command))))
+    (let ((term-name python-term-name))
+    (if  (czq-get-frame czq-python-term-frame-name)
+	(with-selected-frame (czq-get-frame czq-python-term-frame-name)
+	   (switch-to-buffer term-name))))
+
+  )
 
 (setq czq-python-function-pattern "def \\(.*\\):\n")
 (defun exec-function-in-python ()

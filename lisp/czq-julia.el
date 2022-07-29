@@ -68,14 +68,30 @@
   (setq julia-command (replace-regexp-in-string "    " "" julia-command))
   (run-in-julia (format pattern  julia-command)))
 
+;; we now set the default frame to show the terminal
+(setq czq-julia-term-frame-name "acer")
 (defun run-in-julia (command)
   (interactive "scommand:")
   (save-current-buffer
     (progn
       (set-buffer julia-term-name)
       (term-send-raw-string (format "%s\n" command))
-      )))
+      ))
+  (let ((term-name julia-term-name))
+    (if  (czq-get-frame czq-julia-term-frame-name)
+	(with-selected-frame (czq-get-frame czq-julia-term-frame-name)
+	   (switch-to-buffer term-name))))
+  )
 
+(defun czq-julia-send-ctrl-c-n-times (n)
+  (interactive "nsend ctrl-c N times:")
+  (dotimes (idx n)
+    (save-current-buffer
+        (progn
+	  (set-buffer julia-term-name)
+	  (term-send-raw-string "\3\n")
+	  (sleep-for 0.1)
+    ))))
 (defun cd-to-directory-of-current-file-in-julia ()
   (interactive)
   (run-in-julia (format "cd(\"%s\")" default-directory)))
@@ -97,13 +113,13 @@
 (defun  define-julia-keys ()
   (interactive)
   (define-key julia-mode-map (kbd "C-x C-e") `exec-selected-in-julia)
-  ;; (define-key julia-mode-map (kbd "C-x C-i") `get-information-in-julia-for-selected)
+  (define-key julia-mode-map (kbd "C-c C-i") `get-information-in-julia-for-selected)
   (define-key julia-mode-map (kbd "C-x C-r") `exec-function-in-julia)
   (define-key julia-mode-map (kbd "C-c t") `set-julia-term-name)
   (define-key julia-mode-map (kbd "C-c i") `import-julia-file)
   ;; (define-key julia-mode-map (kbd "C-c C-i") `julia-insert-snippet)
   ;; (define-key julia-mode-map (kbd "C-x j") `julia-insert-snippet)
-  ;; (define-key julia-mode-map (kbd "C-c C-i") `eldoc-print-current-symbol-info)
+  ;; (define-key julia-mode-map (kbd "C-c C-i") nil)
   (define-key julia-mode-map (kbd "C-c c") `cd-to-directory-of-current-file-in-julia)
   (define-key julia-mode-map (kbd "C-c C-m") `get-methods-selected-in-julia)
   (define-key julia-mode-map (kbd "C-c d") `find-doc--selected-in-julia)

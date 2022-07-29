@@ -1,4 +1,8 @@
 (provide `czq-wolfram)
+;; we add a default frame to show this
+
+(setq czq-wolfram-preview-frame-name "carta")
+
 (defun czq-wolfram-show-pprint ()
   (interactive)
   (setq czq-wolfram-tag (file-name-base (buffer-name)))
@@ -6,11 +10,14 @@
   (setq pretty-buffer (find-file-noselect pretty-file t))
   ;; it is better not display it
   ;; (display-buffer pretty-buffer)
-  
+  (if  (czq-get-frame czq-wolfram-preview-frame-name)
+	(with-selected-frame (czq-get-frame czq-wolfram-preview-frame-name)
+	  (switch-to-buffer pretty-buffer)))
   (with-current-buffer pretty-buffer
     ;; (revert-buffer nil t nil)
     (revert-buffer-no-confirm)    
-    (rename-buffer (concat "*MathematicaPrettyPrint_"  czq-wolfram-tag "*"))
+    (rename-buffer
+     (concat "*MathematicaPrettyPrint_"  czq-wolfram-tag "*"))
     (org-remove-latex-fragment-image-overlays)
     (beginning-of-buffer)
     (org-toggle-latex-fragment)
@@ -52,13 +59,19 @@
       (setq wolfram-command (thing-at-point `line))
       (run-in-wolfram wolfram-command))))
 
+(setq czq-wolfram-term-frame-name "acer")
 (defun run-in-wolfram (command)
   (interactive "scommand:")
   (save-current-buffer
     (progn
       (set-buffer wolfram-term-name)
       (term-send-raw-string (format "%s\n" command)))
-    ))
+    )
+    (let ((term-name wolfram-term-name))
+    (if  (czq-get-frame czq-wolfram-term-frame-name)
+	(with-selected-frame (czq-get-frame czq-wolfram-term-frame-name)
+	   (switch-to-buffer term-name))))
+  )
 
 (defun  define-wolfram-keys ()
   (interactive)
@@ -102,7 +115,7 @@
   (interactive)
   (run-in-wolfram czq-wolfram-predefined))
 
-
+;; maybe we should move  czq-wolfram-show-pprint into EPrint
 (defun print-selected-in-latex-in-wolfram (beginning end)
   (interactive "r")
   (setq czq-wolfram-tag (file-name-base (buffer-name)))
@@ -111,8 +124,10 @@
     (setq wolfram-command (thing-at-point `symbol)))
   (run-in-wolfram (format "EPrint[%s,\"%s\",\"%s\",%s]" wolfram-command
 			  wolfram-command czq-wolfram-tag czq-wolfram-print-is-append ))
-  (sleep-for 0.1)
-  (czq-wolfram-show-pprint))
+  ;; we move to EPrint
+  ;; (sleep-for 0.1)
+  ;; (czq-wolfram-show-pprint)
+  )
 
 (defun print-selected-in-latex-in-wolfram-write ()
   (interactive)

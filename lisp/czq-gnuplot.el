@@ -15,10 +15,12 @@
   (setq current-gnuplot-file (buffer-file-name))
   (run-in-gnuplot (format "include(\"%s\")" current-gnuplot-file))
   )
-(defun set-gnuplot-term-name (name)
-  (interactive "st(name):")
+(defun set-gnuplot-term-name ()
+  (interactive "")
   (make-local-variable `gnuplot-term-name)
-  (setq gnuplot-term-name (format "t%s" name))
+  ;; (setq gnuplot-term-name (format "t%s" name))
+  (czq-get-terminal-list)
+  (setq gnuplot-term-name   (completing-read "set gnuplot term as: " czq-terminal-list))
   (message gnuplot-term-name)
   )
 ;; (defun exec-selected-in-gnuplot (beginning end)
@@ -54,13 +56,19 @@
   (setq gnuplot-command (buffer-substring beginning end))
   (run-in-gnuplot (format pattern  gnuplot-command)))
 
+(setq czq-gnuplot-term-frame-name "acer")
 (defun run-in-gnuplot (command)
   (interactive "scommand:")
   (save-current-buffer
     (progn
       (set-buffer gnuplot-term-name)
       (term-send-raw-string (format "%s\n" command))
-      )))
+      ))
+  (let ((term-name gnuplot-term-name))
+    (if  (czq-get-frame czq-gnuplot-term-frame-name)
+	(with-selected-frame (czq-get-frame czq-gnuplot-term-frame-name)
+	   (switch-to-buffer term-name))))
+  )
 
 ;; notice that we use in surface, so we need to map the home directory
 
