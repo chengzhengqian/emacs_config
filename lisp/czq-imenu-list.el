@@ -65,7 +65,16 @@
   (fset `imenu-list--show-current-entry `czq-imenu-list--show-current-entry))
 
 (add-hook `imenu-list-major-mode-hook `czq-patch-imenu-list)
+
+;; automatically switch to the buffer in given frame
+(setq czq-imenu-list-frame-name "carta")
+
 (defun czq-update-imenu-list ()
   (interactive)
-  (imenu-list-update))
+  (imenu-list-update)
+  (if (czq-get-frame czq-imenu-list-frame-name)
+      (with-selected-frame (czq-get-frame czq-imenu-list-frame-name)
+	(switch-to-buffer "*Ilist*")
+	))
+  )
 (global-set-key (kbd "C-c M-j") `czq-update-imenu-list)
