@@ -1,4 +1,5 @@
-using JuliaCommon
+# using JuliaCommon
+using CZQUtils
 # pattern=evalInEmacs("(strip-font-info (thing-at-point `symbol))")
 import Sockets.Sockets
 
