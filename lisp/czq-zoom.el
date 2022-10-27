@@ -39,6 +39,9 @@
   (set-face-attribute 'default (selected-frame)
                       :height 110)
   (czq-add-to-framelist "nuc")
+  ;; it seems that set to "0.0.0.0" does not work
+  (setq czq-eaf-server-address "10.42.0.1")
+  (czq-set-eaf-python-address-display "10.42.0.1" ":0")
 )
 
 
@@ -93,6 +96,7 @@
   (interactive)
   (set-frame-font "Monospace Bold 20")
   (czq-add-to-framelist "surface")
+  (czq-set-eaf-python-address-display "10.42.0.75" ":0")
   )
 
 (defun czq-zoom-in-global ()
