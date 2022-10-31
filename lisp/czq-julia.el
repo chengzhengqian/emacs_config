@@ -63,12 +63,31 @@
   ;; (setq julia-current-module-name (file-name-base (buffer-name)))
   (exec-selected-in-julia-with-wrap beginning end  "@less %s"))
 
+;; (defun exec-selected-in-julia-with-wrap (beginning end pattern)
+;;   (setq julia-command (buffer-substring beginning end))
+;;   (setq julia-command (replace-regexp-in-string "    " "" julia-command))
+;;   (run-in-julia (format pattern  julia-command)))
+
+;; we
+(setq czq-julia-max-inline-cmd-size 30)
+
 (defun exec-selected-in-julia-with-wrap (beginning end pattern)
   (setq julia-command (buffer-substring beginning end))
-  (setq julia-command (replace-regexp-in-string "    " "" julia-command))
-  (run-in-julia (format pattern  julia-command)))
+  (setq julia-command (format pattern  julia-command))
+  (if (> (length julia-command) czq-julia-max-inline-cmd-size)
+      ;; if the size is big, we run it in a file
+      (progn
+	;; we must use the same directory, otherwise, the include comand will expand . wild card wrong
+	(setq czq-julia-temp-file-name "./czq_julia_tmp.jl")
+	(with-temp-file czq-julia-temp-file-name
+	  (insert julia-command))
+	(setq czq-julia-command-msg  (format "run:  <%s...%s> total %d characters " (substring-no-properties julia-command 0 10) (substring-no-properties julia-command -10 ) (length julia-command)))
+	(run-in-julia-with-message (format "include(\"%s\")" czq-julia-temp-file-name) czq-julia-command-msg))	
+    ;; if the size is small, we run it directly
+  (run-in-julia julia-command)))
 
 ;; we now set the default frame to show the terminal
+;; we should make this more general, to it later
 (setq czq-julia-term-frame-name "acer")
 (defun run-in-julia (command)
   (interactive "scommand:")
@@ -76,6 +95,20 @@
     (progn
       (set-buffer julia-term-name)
       (term-send-raw-string (format "%s\n" command))
+      ))
+  (let ((term-name julia-term-name))
+    (if  (czq-get-frame czq-julia-term-frame-name)
+	(with-selected-frame (czq-get-frame czq-julia-term-frame-name)
+	   (switch-to-buffer term-name))))
+  )
+
+(defun run-in-julia-with-message (command msg)
+  (interactive "scommand:")
+  (save-current-buffer
+    (progn
+      (set-buffer julia-term-name)
+      (term-send-raw-string (format "%s\n" command))
+      (message msg)
       ))
   (let ((term-name julia-term-name))
     (if  (czq-get-frame czq-julia-term-frame-name)
@@ -150,7 +183,8 @@
   )
 
 (setq czq-julia-client-preload "include(\"/home/chengzhengqian/.emacs.d/lisp/server/czq-server-julia-client.jl\")")
-(setq czq-julia-client-start "JuliaCommon.czqEmacsSocket[\"default\"]=Sockets.connect(\"localhost\",9001)")
+;; (setq czq-julia-client-start "JuliaCommon.czqEmacsSocket[\"default\"]=Sockets.connect(\"localhost\",9001)")
+(setq czq-julia-client-start "CZQUtils.czqEmacsSocket[\"default\"]=Sockets.connect(\"localhost\",9001)")
 (setq czq-julia-client-close "close(czqEmacsEvalConnection)")
 (defun czq-julia-client-options (op)
   (interactive "ss(tart),r(estart),c(lose)")
