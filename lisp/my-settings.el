@@ -100,16 +100,28 @@
 ;; (global-set-key (kbd "C-c b") 'w3m-search)
 ;; update eww keys
 (global-set-key (kbd "C-c b") 'eww-search-region)
-(defun eww-search-region (beginning end)
-  (interactive "r")
+
+;; we need to update the treatment of region, in case there is not region defined
+;; (defun eww-search-region (beginning end)
+;;   (interactive "r")
+;;   (if (use-region-p)
+;;       (eww (buffer-substring beginning end))
+;;     (call-interactively `eww)))
+(defun eww-search-region ()
+  (interactive "")
   (if (use-region-p)
-      (eww (buffer-substring beginning end))
+      (eww (buffer-substring  (region-beginning) (region-end)))
     (call-interactively `eww)))
 
-(defun eww-search-in-handian (beginning end)
-  (interactive "r")
+;; (defun eww-search-in-handian (beginning end)
+;;   (interactive "r")
+;;   (if (use-region-p)
+;;       (eww (format "https://www.zdic.net/hant/%s" (buffer-substring beginning end)))
+;;     (call-interactively `eww)))
+(defun eww-search-in-handian ()
+  (interactive "")
   (if (use-region-p)
-      (eww (format "https://www.zdic.net/hant/%s" (buffer-substring beginning end)))
+      (eww (format "https://www.zdic.net/hant/%s" (buffer-substring  (region-beginning) (region-end))))
     (call-interactively `eww)))
 
 
