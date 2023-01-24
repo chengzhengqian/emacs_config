@@ -68,8 +68,9 @@
 ;;   (setq julia-command (replace-regexp-in-string "    " "" julia-command))
 ;;   (run-in-julia (format pattern  julia-command)))
 
-;; we
+;; we need to think about a better way to show the snapshot of the code
 (setq czq-julia-max-inline-cmd-size 30)
+;; (length (split-string julia-command "\n"))
 
 (defun exec-selected-in-julia-with-wrap (beginning end pattern)
   (setq julia-command (buffer-substring beginning end))
@@ -125,9 +126,14 @@
 	  (term-send-raw-string "\3\n")
 	  (sleep-for 0.1)
     ))))
+
+;; if the directory contains ssh
+;; (setq czq-test-ssh-directory "/ssh:gin:/burg/home/zc2255/workspace/vdat/VDAT.jl/")
+(defun czq-process-directory (czq-test-ssh-directory)
+  (replace-regexp-in-string "/ssh:.+:" "" czq-test-ssh-directory))
 (defun cd-to-directory-of-current-file-in-julia ()
   (interactive)
-  (run-in-julia (format "cd(\"%s\")" default-directory)))
+  (run-in-julia (format "cd(\"%s\")" (czq-process-directory default-directory))))
 
 (setq czq-julia-function-pattern "function \\(.*\\)\n")
 (defun exec-function-in-julia ()
