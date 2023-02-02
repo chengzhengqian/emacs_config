@@ -77,10 +77,11 @@
     (setq python-current-module-name (file-name-base (buffer-name)))  
     (run-in-python (format "%s" python-command)))))
 
+;; see czq-julia to check how czq-process-directory 
 (defun czq-python-change-directory ()
   (interactive)
   (setq czq-python-current-directory (file-name-directory (buffer-file-name)))
-  (run-in-python (format "cd %s" czq-python-current-directory)))
+  (run-in-python (format "cd %s" (czq-process-directory czq-python-current-directory))))
 
 (defun  define-python-keys ()
   (interactive)
