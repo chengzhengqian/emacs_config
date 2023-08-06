@@ -29,4 +29,8 @@ wget http://mirrors.tripadvisor.com/gnu/emacs/emacs-29.1.tar.gz
 # in /home/chengzhengqian/Application_local/emacs/emacs-29.1
 export PKG_CONFIG_PATH=/home/chengzhengqian/Application_local/imagemagick/imagemagick-7.1-install/lib/pkgconfig
 #  it is libjansson-dev after some search
-./configure --prefix=/home/chengzhengqian/Application/emacs/emacs-29-lucid-image-json-module  --with-x-toolkit=lucid  --with-imagemagick --with-modules --with-json   CFLAGS='-O3'
+./configure --prefix=/home/chengzhengqian/Application/emacs/emacs-29-lucid-image-json-module  --with-x-toolkit=lucid  --with-imagemagick --with-modules --with-json --with-tree-sitter --with-native-compilation   CFLAGS='-O3'
+# notice run the following command before make
+# to run the file
+export LD_LIBRARY_PATH=/home/chengzhengqian/Application_local/imagemagick/imagemagick-7.1-install/lib
+/home/chengzhengqian/Application/emacs/emacs-29-lucid-image-json-module/bin/emacs-29.1 

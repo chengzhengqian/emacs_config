@@ -34,3 +34,5 @@ To build anyway, give:
     --with-xpm=ifavailable --with-jpeg=ifavailable --with-gif=ifavailable --with-tiff=ifa
 vailable --with-gnutls=ifavailable                                                      
 as options to configure.
+
+

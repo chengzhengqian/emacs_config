@@ -148,7 +148,7 @@
   (org-toggle-latex-fragment)
   (message "copy the formulas to clipboard")
 )
-(setq czq-wolfram-imenu-expression `((nil "^\\([^ =]+\\)=" 1)))
+(setq czq-wolfram-imenu-expression `((nil "^\\([^ =]+\\):=" 1)))
 
 (defun czq-set-wolfram-imenu ()
   (interactive)

@@ -272,7 +272,7 @@
 (setq slime-contribs `(slime-fancy))
 (setq haskell-program-name "stack ghci")
 
-(require `cling)
+(require `czq-cling)
 ;; <<<<<<< Updated upstream
 (require `czq-python)
 (add-to-list 'auto-mode-alist '("\\.jl\\'" . julia-mode))
@@ -387,17 +387,65 @@
 (require `czq-switch-frame)
 (global-set-key (kbd "C-c s") `czq-switch-with-other-frame)
 
-(defun czq-load-eaf ()
+;; this function is not useful,
+;; (defun czq-load-eaf ()
+;;   (interactive)
+;;   (add-to-list 'load-path "~/Application/emacs-application-framework/")
+;;   (require 'eaf)
+;;   (require 'eaf-browser)
+;;   (require 'eaf-pdf-viewer)
+;;   (require 'eaf-terminal)
+;;   (require 'eaf-demo)
+;;   (setq eaf-pdf-dark-mode nil)
+;;   (setq eaf-browser-dark-mode t)
+;;   (setq eaf-browser-default-zoom 1.5)
+;;   ;; use android user agent
+;;   (setq eaf-browser-pc-user-agent "Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Mobile Safari/537.36")
+;;   )
+
+(defun czq-move-buffer-file (dir)
+ "Moves both current buffer and file it's visiting to DIR." 
+ (interactive "DNew directory: ")
+ (let* ((name (buffer-name))
+     (filename (buffer-file-name))
+     (dir
+      (if (string-match dir "\\(?:/\\|\\\\)$")
+	  (substring dir 0 -1) dir))
+     (newname (concat dir "/" name)))
+
+ (if (not filename)
+    (message "Buffer '%s' is not visiting a file!" name)
+   (progn   
+     (copy-file filename newname 1)     
+     (delete-file filename)     
+     (set-visited-file-name newname)    
+     (set-buffer-modified-p nil)    t))))
+
+(defun czq-insert-point-info ()
   (interactive)
-  (add-to-list 'load-path "~/Application/emacs-application-framework/")
-  (require 'eaf)
-  (require 'eaf-browser)
-  (require 'eaf-pdf-viewer)
-  (require 'eaf-terminal)
-  (require 'eaf-demo)
-  (setq eaf-pdf-dark-mode nil)
-  (setq eaf-browser-dark-mode t)
-  (setq eaf-browser-default-zoom 1.5)
-  ;; use android user agent
-  (setq eaf-browser-pc-user-agent "Mozilla/5.0 (Linux; Android 12) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Mobile Safari/537.36")
+  (insert (format "%s L%s" (buffer-file-name) (line-number-at-pos)))
   )
+
+(require `czq-sql)
+
+
+;; for treesit
+
+(setq treesit-language-source-alist
+   '((bash "https://github.com/tree-sitter/tree-sitter-bash")
+     (cmake "https://github.com/uyha/tree-sitter-cmake")
+     (css "https://github.com/tree-sitter/tree-sitter-css")
+     (elisp "https://github.com/Wilfred/tree-sitter-elisp")
+     (go "https://github.com/tree-sitter/tree-sitter-go")
+     (html "https://github.com/tree-sitter/tree-sitter-html")
+     (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+     (json "https://github.com/tree-sitter/tree-sitter-json")
+     (make "https://github.com/alemuller/tree-sitter-make")
+     (markdown "https://github.com/ikatyang/tree-sitter-markdown")
+     (python "https://github.com/tree-sitter/tree-sitter-python")
+     (toml "https://github.com/tree-sitter/tree-sitter-toml")
+     (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+     (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+     (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
+
+

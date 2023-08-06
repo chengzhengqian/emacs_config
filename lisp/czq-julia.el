@@ -131,6 +131,8 @@
 ;; (setq czq-test-ssh-directory "/ssh:gin:/burg/home/zc2255/workspace/vdat/VDAT.jl/")
 (defun czq-process-directory (czq-test-ssh-directory)
   (replace-regexp-in-string "/ssh:.+:" "" czq-test-ssh-directory))
+
+
 (defun cd-to-directory-of-current-file-in-julia ()
   (interactive)
   (run-in-julia (format "cd(\"%s\")" (czq-process-directory default-directory))))
@@ -225,6 +227,7 @@
     ("Type"  "^[ \t]*[a-zA-Z0-9_]*type[a-zA-Z0-9_]* \\([^ \t\n]*\\)" 1)
     ("Require"      " *\\(\\brequire\\)(\\([^ \t\n)]*\\)" 2)
     ("Include"      " *\\(\\binclude\\)(\\([^ \t\n)]*\\)" 2)
+    ("Macro"      "^[ \t]*macro[ \t]+\\([^_][^\t\n]*\\)" 1)
     ;; ("Classes" "^.*setClass(\\(.*\\)," 1)
     ;; ("Coercions" "^.*setAs(\\([^,]+,[^,]*\\)," 1) ; show from and to
     ;; ("Generics" "^.*setGeneric(\\([^,]*\\)," 1)

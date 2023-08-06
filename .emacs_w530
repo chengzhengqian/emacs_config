@@ -24,7 +24,7 @@
  '(geiser-guile-binary "/home/chengzhengqian/cloud/guile2.2/bin/guile")
  '(imenu-auto-rescan t)
  '(package-selected-packages
-   '(manage-minor-mode gnuplot-mode eglot-fsharp eglot-jl lsp-julia lsp-mode haskell-mode yasnippet cider pyim-cangjie5dict pyim geiser julia-mode ensime javadoc-lookup scala-mode js-comint origami fsharp-mode yapfify w3m tuareg slime realgud multi-web-mode magit js3-mode jedi intero haskell-emacs ggtags flycheck-irony etags-select elpy ein edit-server ecb cython-mode company-web company-irony company-ghc auto-complete-sage ac-js2 ac-haskell-process 2048-game))
+   '(nov xref geiser-racket rust-mode amx counsel imenu-list sr-speedbar mini-modeline manage-minor-mode gnuplot-mode eglot-fsharp eglot-jl lsp-julia lsp-mode haskell-mode yasnippet cider pyim-cangjie5dict pyim geiser julia-mode ensime javadoc-lookup scala-mode js-comint origami fsharp-mode yapfify w3m tuareg slime realgud multi-web-mode magit js3-mode jedi intero haskell-emacs ggtags flycheck-irony etags-select elpy ein edit-server ecb cython-mode company-web company-irony company-ghc auto-complete-sage ac-js2 ac-haskell-process 2048-game))
  '(realgud-safe-mode nil)
  '(safe-local-variable-values
    '((haskell-process-use-ghci . t)
