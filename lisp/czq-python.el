@@ -38,8 +38,9 @@
   (run-in-python "%cpaste")
   (sleep-for 0.1)
   (run-in-python python-command)
+  (sleep-for 0.1)
   (run-in-python "--")
-  ;; (run-in-python "\n")			;it seems we need this sometimes 
+  (run-in-python "\n")			;it seems we need this sometimes 
 )
 
 (defun exec-selected-in-python-with-module (beginning end)

@@ -77,6 +77,7 @@
   (setq czq-desktop-dir (replace-regexp-in-string "/home/chengzhengqian/" "/home/chengzhengqian/desktop/" default-directory) )
   (run-in-gnuplot (format "cd \"%s\"" czq-desktop-dir)))
 
+;; this is not useful in gnuplot, we modify it as a block
 (setq czq-gnuplot-function-pattern "function \\(.*\\)\n")
 (defun exec-function-in-gnuplot ()
   (interactive )
@@ -87,6 +88,18 @@
     ;; (setq gnuplot-current-module-name (file-name-base (buffer-name)))  
     (run-in-gnuplot (format "%s"  gnuplot-command)))))
 
+(defun exec-block-in-gnuplot ()
+  (interactive)
+  (save-excursion
+    (backward-paragraph)
+    (call-interactively 'set-mark-command)
+    (forward-paragraph)
+    (call-interactively 'exec-selected-in-gnuplot)
+    )
+  (deactivate-mark)
+  )
+
+
 (defun get-information-in-gnuplot-for-selected  (beginning end)
   (interactive "r")
   (exec-selected-in-gnuplot-with-wrap beginning end  "?%s"))
@@ -95,7 +108,8 @@
   (interactive)
   (define-key gnuplot-mode-map (kbd "C-x C-e") `exec-selected-in-gnuplot)
   (define-key gnuplot-mode-map (kbd "C-x C-i") `get-information-in-gnuplot-for-selected)
-  (define-key gnuplot-mode-map (kbd "C-x C-r") `exec-function-in-gnuplot)
+  ;; (define-key gnuplot-mode-map (kbd "C-x C-r") `exec-function-in-gnuplot)
+  (define-key gnuplot-mode-map (kbd "C-x C-r") `exec-block-in-gnuplot)
   (define-key gnuplot-mode-map (kbd "C-c t") `set-gnuplot-term-name)
   (define-key gnuplot-mode-map (kbd "C-c i") `import-gnuplot-file)
   (define-key gnuplot-mode-map (kbd "C-c C-i") `gnuplot-insert-snippet)
@@ -106,3 +120,24 @@
   (define-key gnuplot-mode-map (kbd "C-c u") `czq-gnuplot-update-imported-module)
   (define-key gnuplot-mode-map (kbd "C-c p") `gene-gnuplot)
   )
+
+(defun alist-keys (alist)
+  (mapcar 'car alist))
+
+;; (setq alist-gnuplot-greek-letter '(("Alpha" . "A") ("Beta" . "B")) )
+;;
+(setq alist-gnuplot-greek-letter-raw '(("A"."Alpha")("N"."Nu")("a"."alpha")("n"."nu")("B"."Beta")("O"."Omicron")("b"."beta")("o"."omicron")("C"."Chi")("P"."Pi")("c"."chi")("p"."pi")("D"."Delta")("Q"."Theta")("d"."delta")("q"."theta")("E"."Epsilon")("R"."Rho")("e"."epsilon")("r"."rho")("F"."Phi")("S"."Sigma")("f"."phi")("s"."sigma")("G"."Gamma")("T"."Tau")("g"."gamma")("t"."tau")("H"."Eta")("U"."Upsilon")("h"."eta")("u"."upsilon")("I"."iota")("W"."Omega")("i"."iota")("w"."omega")("K"."Kappa")("X"."Xi")("k"."kappa")("x"."xi")("L"."Lambda")("Y"."Psi")("l"."lambda")("y"."psi")("M"."Mu")("Z"."Zeta")("m"."mu")("z"."zeta")))
+;; reverse key and value
+(setq alist-gnuplot-greek-letter (mapcar (lambda (x) (cons (cdr x)  (car x))) alist-gnuplot-greek-letter-raw))
+
+
+(defun czq-gnuplot-insert-greek-letter ()
+  "insert greek letter in gnuplot"
+  (interactive "")
+  (setq czq-greek-letter (completing-read "choose greek letter" (alist-keys alist-gnuplot-greek-letter)))
+  (setq czq-gnuplot-greek-letter (cdr (assoc czq-greek-letter alist-gnuplot-greek-letter)))  
+  (insert (format "{/Symbol %s}" czq-gnuplot-greek-letter))
+  )
+
+
+

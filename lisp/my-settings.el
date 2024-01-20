@@ -257,7 +257,7 @@
   (define-key term-raw-map (kbd "C-x b") `switch-to-buffer)
   (define-key term-raw-map (kbd "C-x o") `other-window)
   (define-key term-raw-map (kbd "C-x j") `change-term-mode)
-  (define-key term-raw-map (kbd "C-x r") `run-cling)
+  ;; (define-key term-raw-map (kbd "C-x r") `run-cling)
   )
 
 (define-key term-mode-map (kbd "C-x j") `change-term-mode)
@@ -272,7 +272,7 @@
 (setq slime-contribs `(slime-fancy))
 (setq haskell-program-name "stack ghci")
 
-(require `czq-cling)
+;; (require `czq-cling)
 ;; <<<<<<< Updated upstream
 (require `czq-python)
 (add-to-list 'auto-mode-alist '("\\.jl\\'" . julia-mode))
@@ -448,4 +448,16 @@
      (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
      (yaml "https://github.com/ikatyang/tree-sitter-yaml")))
 
+;; set racket
+(defun czq-set-geiser-scheme-binary ()
+  (interactive)
+  (setq geiser-racket-binary "/home/chengzhengqian/Application_local/racket/racket-8.9-build/bin/racket")
+  (setq geiser-guile-binary "/home/chengzhengqian/Application_local/guile/guile-3.0-build/bin/guile")
+  )
 
+
+;; nyxt via slime
+(require `czq-nyxt)
+
+
+(global-set-key (kbd "C-c C-b") 'czq-search-selected-in-nyxt)

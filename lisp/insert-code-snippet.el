@@ -178,8 +178,8 @@ Java_com_serendipity_chengzhengqian_jsos_JsNative_%s(JNIEnv* env, jobject /* thi
 
 ;; new functions
 
-(defun czq-insert-number-sequence (start end pattern)
-  (interactive "nstart:\nnend:\nspattern:")
-  (dolist (x (number-sequence start end ))
+(defun czq-insert-number-sequence (start end inc pattern)
+  (interactive "nstart:\nnend:\nninc:\nsformat pattern:")
+  (dolist (x (number-sequence start end inc ))
     (insert (format pattern x))
     ))
